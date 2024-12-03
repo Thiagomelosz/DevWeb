@@ -11,6 +11,7 @@ public class Aluno {
     private String cidade;
     private String bairro;
     private String cep;
+    private String nota;
     
 
     public Aluno(String nome, String email, String celular, String cpf, String senha, String endereco, String cidade, String bairro, String cep) {
@@ -53,6 +54,14 @@ public class Aluno {
 
     public String getCelular() {
         return celular;
+    }
+
+    public String getNota() {
+        return nota;
+    }
+
+    public void setNota(String nota) {
+        this.nota = nota;
     }
 
     public void setCelular(String celular) {

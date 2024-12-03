@@ -1,4 +1,4 @@
-<%@page import="entidade.Categoria"%>
+<%@page import="entidade.Disciplina"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 
@@ -9,7 +9,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="#">
-        <title>Lista Categorias</title>
+        <title>Lista Disciplinas</title>
          <link href="http://localhost:8080/aplicacaoMVC/views/bootstrap/bootstrap.min.css"  rel="stylesheet">
 
     </head>
@@ -19,30 +19,30 @@
             <div class="mt-5">
 
                 <h1>Área Restrita</h1>
-                <h2>Lista de Categorias</h2>
+                <h2>Lista de Disciplinas</h2>
 
-                <a href="/aplicacaoMVC/admin/CategoriaController?acao=Incluir" class="mb-2 btn btn-primary">Incluir</a>
+                <a href="/aplicacaoMVC/admin/DisciplinaController?acao=Incluir" class="mb-2 btn btn-primary">Criar Disciplina</a>
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">Id</th>
-                                <th scope="col">Descrição</th>
+                                <th scope="col">Nome</th>
                                 <th scope="col">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
                             <%
-                                ArrayList<Categoria> listaCategorias = (ArrayList<Categoria>) request.getAttribute("listaCategorias");
+                                ArrayList<Disciplina> listaDisciplinas = (ArrayList<Disciplina>) request.getAttribute("listadisciplinas");
 
-                                for (Categoria categoria : listaCategorias) {
+                                for (Disciplina disciplina : listaDisciplinas) {
                                     out.println("<tr>");
-                                    out.println("<th>" + categoria.getId() + "</th>");
-                                    out.println("<td>" + categoria.getDescricao() + "</td>");
+                                    out.println("<th>" + disciplina.getId() + "</th>");
+                                    out.println("<td>" + disciplina.getNome() + "</td>");
                                     %>
                             <td>
-                            <a href="/aplicacaoMVC/admin/CategoriaController?acao=Alterar&id=<%=categoria.getId()%>" class="btn btn-warning">Alterar</a>
-                            <a href="/aplicacaoMVC/admin/CategoriaController?acao=Excluir&id=<%=categoria.getId()%>" class="btn btn-danger">Excluir</a></td>
+                            <a href="/aplicacaoMVC/admin/DisciplinaController?acao=Alterar&id=<%=disciplina.getId()%>" class="btn btn-warning">Alterar</a>
+                            <a href="/aplicacaoMVC/admin/DisciplinaController?acao=Excluir&id=<%=disciplina.getId()%>" class="btn btn-danger">Excluir</a></td>
                             
                             <%   out.println("</tr>");
                                 }

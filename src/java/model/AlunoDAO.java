@@ -6,31 +6,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import entidade.Aluno;
 
-/*
--- Estrutura da tabela `Alunos`
-
-CREATE TABLE IF NOT EXISTS `alunos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(50) CHARACTER SET utf8 NOT NULL,
-  `email` varchar(50) CHARACTER SET utf8 NOT NULL,
-  `celular` char(14) CHARACTER SET utf8 NOT NULL,
-  `cpf` varchar(14) CHARACTER SET utf8 NOT NULL,
-  `senha` varchar(255) CHARACTER SET utf8 NOT NULL,
-  `endereco` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
-  `cidade` varchar(30) CHARACTER SET utf8 DEFAULT NULL,
-  `bairro` varchar(30) CHARACTER SET utf8 DEFAULT NULL,
-  `cep` varchar(9) CHARACTER SET utf8 DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-
- */
 public class AlunoDAO {
 
     public void Inserir(Aluno Aluno) throws Exception {
         Conexao conexao = new Conexao();
         try {
             PreparedStatement sql = conexao.getConexao().prepareStatement("INSERT INTO Alunos (nome, email, celular, cpf, senha, endereco, cidade, bairro, cep)"
-                    + " VALUES (?,?,?,?)");
+        + " VALUES (?,?,?,?,?,?,?,?,?)");
             sql.setString(1, Aluno.getNome());
             sql.setString(2, Aluno.getEmail());
             sql.setString(3, Aluno.getCelular());
@@ -42,8 +24,9 @@ public class AlunoDAO {
             sql.setString(9, Aluno.getCep());
             sql.executeUpdate();
 
-        } catch (SQLException e) {
-            throw new RuntimeException();
+       } catch (SQLException e) {
+            e.printStackTrace(); // Para imprimir o erro no console
+            throw new RuntimeException("Erro ao executar a operação no banco de dados.", e);
         } finally {
             conexao.closeConexao();
         }

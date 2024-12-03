@@ -20,29 +20,48 @@
                     String msgError = (String) request.getAttribute("msgError");
                     if ((msgError != null) && (!msgError.isEmpty())) {%>
                 <div class="alert alert-danger" role="alert">
-                    <%= msgError%>
+                    <%= msgError %>
                 </div>
-                <% }%>
+                <% } %>
+
+                <!-- Formulário de Login -->
                 <form action="/aplicacaoMVC/AutenticaController?acao=login" method="POST">
+                    <!-- Campo CPF -->
                     <div class="mb-3">
                         <label for="cpf" class="form-label">CPF</label>
-                        <input type="text" name="cpf" value="249.252.810-38" class="form-control">
+                        <input type="text" name="cpf" value="249.252.810-38" class="form-control" required>
                     </div>
+
+                    <!-- Campo Senha -->
                     <div class="mb-3">
                         <label for="senha" class="form-label">Senha</label>
-                        <input type="password" name="senha" value="123" class="form-control">
+                        <input type="password" name="senha" value="123" class="form-control" required>
                     </div>
+
+                    <!-- Campo Tipo de Usuário -->
+                    <div class="mb-3">
+                        <label for="tipo_usuario" class="form-label">Tipo de Usuário</label>
+                        <select name="tipo_usuario" class="form-control" required>
+                            <option value="administrador">Administrador</option>
+                            <option value="professor">Professor</option>
+                            <option value="aluno">Aluno</option>
+                        </select>
+                    </div>
+
+                    <!-- Botão de Envio -->
                     <div class="row">
                         <div class="col-sm-2">
-                            <input type="submit" value="Enviar" class="btn btn-primary">  
+                            <input type="submit" value="Entrar" class="btn btn-primary">  
                         </div>
-                        <div class="col-sm-6">                                
-                            <h6>Não possui acesso <a href="/aplicacaoMVC/RegistrarController">Registre-se aqui</a></h6>
+                        <div class="col-sm-6">                                 
+                            <h6>Não possui acesso? <a href="/aplicacaoMVC/RegistrarController">Registre-se aqui</a></h6>
                         </div>
+                    </div>
                 </form>
             </div>
         </div>
+        
+        <!-- Scripts -->
         <script src="http://localhost:8080/aplicacaoMVC/views/bootstrap/bootstrap.bundle.min.js"></script>
     </body>
 </html>
-

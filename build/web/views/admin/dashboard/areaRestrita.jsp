@@ -25,6 +25,11 @@
 
             </div>
         </div>
+              
+                
         <script src="http://localhost:8080/aplicacaoMVC/views/bootstrap/bootstrap.bundle.min.js"></script>
     </body>
 </html>
+            
+            
+           

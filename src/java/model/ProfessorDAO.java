@@ -19,6 +19,8 @@ CREATE TABLE IF NOT EXISTS `Professors` (
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 // id, nome, email, cpf, senha
  */
+
+
 public class ProfessorDAO {
 
     public void Inserir(Professor Professor) throws Exception {

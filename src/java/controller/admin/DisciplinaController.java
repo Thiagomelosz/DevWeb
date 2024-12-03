@@ -1,6 +1,6 @@
 package controller.admin;
 
-import entidade.Categoria;
+import entidade.Disciplina;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
@@ -10,10 +10,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.CategoriaDAO;
+import model.DisciplinaDAO;
 
-@WebServlet(name = "CategoriaController", urlPatterns = {"/admin/CategoriaController"})
-public class CategoriaController extends HttpServlet {
+@WebServlet(name = "DisciplinaController", urlPatterns = {"/admin/DisciplinaController"})
+public class DisciplinaController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -21,15 +21,15 @@ public class CategoriaController extends HttpServlet {
 
         // get parametro ação indicando o que fazer
         String acao = (String) request.getParameter("acao");
-        Categoria categoria = new Categoria();
-        CategoriaDAO categoriaDAO = new CategoriaDAO();
+        Disciplina disciplina = new Disciplina();
+        DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
         RequestDispatcher rd;
         switch (acao) {
             case "Listar":
-                ArrayList<Categoria> listaCategorias = categoriaDAO.getAll();
-                request.setAttribute("listaCategorias", listaCategorias);
+                ArrayList<Disciplina> listaDisciplinas = disciplinaDAO.getAll();
+                request.setAttribute("listaDisciplinas", listaDisciplinas);
 
-                rd = request.getRequestDispatcher("/views/admin/categoria/listaCategorias.jsp");
+                rd = request.getRequestDispatcher("/views/admin/disciplina/listaDisciplinas.jsp");
                 rd.forward(request, response);
 
                 break;
@@ -38,21 +38,22 @@ public class CategoriaController extends HttpServlet {
 
                 // get parametro ação indicando sobre qual categoria será a ação
                 int id = Integer.parseInt(request.getParameter("id"));
-                categoria = categoriaDAO.get(id);
+                disciplina = disciplinaDAO.get(id);
 
-                request.setAttribute("categoria", categoria);
+                
+                request.setAttribute("disciplina", disciplina);
                 request.setAttribute("msgError", "");
                 request.setAttribute("acao", acao);
 
-                rd = request.getRequestDispatcher("/views/admin/categoria/formCategoria.jsp");
+                rd = request.getRequestDispatcher("/views/admin/disciplina/formDisciplina.jsp");
                 rd.forward(request, response);
                 break;
             case "Incluir":
-                request.setAttribute("categoria", categoria);
+                request.setAttribute("disciplina", disciplina);
                 request.setAttribute("msgError", "");
                 request.setAttribute("acao", acao);
 
-                rd = request.getRequestDispatcher("/views/admin/categoria/formCategoria.jsp");
+                rd = request.getRequestDispatcher("/views/admin/disciplina/formDisciplina.jsp");
                 rd.forward(request, response);
         }
 
@@ -63,19 +64,22 @@ public class CategoriaController extends HttpServlet {
             throws ServletException, IOException {
 
         int id = Integer.parseInt(request.getParameter("id"));
-        String descricao = request.getParameter("descricao");
+        String nome = request.getParameter("nome");
+        String requisito = request.getParameter("requisito");
+        String ementa = request.getParameter("ementa");
+        int cargaHoraria = Integer.parseInt(request.getParameter("cargaHoraria"));
         String btEnviar = request.getParameter("btEnviar");
 
         RequestDispatcher rd;
 
-        if (descricao.isEmpty()) {
-            Categoria categoria = new Categoria();
+        if (nome.isEmpty()) {
+            Disciplina disciplina = new Disciplina();
             switch (btEnviar) {
                 case "Alterar":
                 case "Excluir":
                     try {
-                    CategoriaDAO categoriaDAO = new CategoriaDAO();
-                    categoria = categoriaDAO.get(id);
+                    DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
+                    disciplina = disciplinaDAO.get(id);
 
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
@@ -84,36 +88,36 @@ public class CategoriaController extends HttpServlet {
                 break;
             }
 
-            request.setAttribute("categoria", categoria);
+            request.setAttribute("disciplina", disciplina);
             request.setAttribute("acao", btEnviar);
 
             request.setAttribute("msgError", "É necessário preencher todos os campos");
 
-            rd = request.getRequestDispatcher("/views/admin/categoria/formCategoria.jsp");
+            rd = request.getRequestDispatcher("/views/admin/disciplina/formDisciplina.jsp");
             rd.forward(request, response);
 
         } else {
             
-             Categoria categoria = new Categoria(id,descricao);
-             CategoriaDAO categoriaDAO = new CategoriaDAO();
+             Disciplina disciplina = new Disciplina(id,nome,requisito,ementa,cargaHoraria);
+             DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
 
             try {
                 switch (btEnviar) {
                     case "Incluir":
-                        categoriaDAO.insert(categoria);
+                        disciplinaDAO.insert(disciplina);
                         request.setAttribute("msgOperacaoRealizada", "Inclusão realizada com sucesso");
                         break;
                     case "Alterar":
-                        categoriaDAO.update(categoria);
+                        disciplinaDAO.update(disciplina);
                         request.setAttribute("msgOperacaoRealizada", "Alteração realizada com sucesso");
                         break;
                     case "Excluir":
-                        categoriaDAO.delete(id);
+                        disciplinaDAO.delete(id);
                         request.setAttribute("msgOperacaoRealizada", "Exclusão realizada com sucesso");
                         break;
                 }
 
-                request.setAttribute("link", "/aplicacaoMVC/admin/CategoriaController?acao=Listar");
+                request.setAttribute("link", "/aplicacaoMVC/admin/DisciplinaController?acao=Listar");
                 rd = request.getRequestDispatcher("/views/comum/showMessage.jsp");
                 rd.forward(request, response);
 
