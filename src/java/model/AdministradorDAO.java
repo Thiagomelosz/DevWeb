@@ -130,7 +130,7 @@ public class AdministradorDAO {
             sql.setString(2, Administrador.getSenha());
             ResultSet resultado = sql.executeQuery();
             Administrador AdministradorObtido = new Administrador();
-            if (resultado.next() != false) {
+            if (resultado != null) {
                 while (resultado.next()) {
                     AdministradorObtido.setId(Integer.parseInt(resultado.getString("ID")));
                     AdministradorObtido.setNome(resultado.getString("NOME"));
@@ -138,9 +138,10 @@ public class AdministradorDAO {
                     AdministradorObtido.setEndereco(resultado.getString("ENDERECO"));
                     AdministradorObtido.setSenha(resultado.getString("SENHA"));
                 }
-                return AdministradorObtido;
+                //return AdministradorObtido;
             }
-            return null;
+        return AdministradorObtido;        
+    //return null;
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
