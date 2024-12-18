@@ -33,39 +33,38 @@ public class AlunoDAO {
     }
 
     public Aluno getAluno(int id) throws Exception {
-        Conexao conexao = new Conexao();
-        try {
-            Aluno Aluno = new Aluno();
-            PreparedStatement sql = conexao.getConexao().prepareStatement("SELECT * FROM Alunos WHERE ID = ? ");
-            sql.setInt(1, id);
-            ResultSet resultado = sql.executeQuery();
-            if (resultado != null) {
-                while (resultado.next()) {
-                    Aluno.setId(Integer.parseInt(resultado.getString("ID")));
-                    Aluno.setNome(resultado.getString("NOME"));
-                    Aluno.setEmail(resultado.getString("EMAIL"));
-                    Aluno.setCelular(resultado.getString("CELULAR"));
-                    Aluno.setCpf(resultado.getString("CPF"));
-                    Aluno.setSenha(resultado.getString("SENHA"));
-                    Aluno.setEndereco(resultado.getString("ENDERECO"));
-                    Aluno.setCidade(resultado.getString("CIDADE"));
-                    Aluno.setBairro(resultado.getString("BAIRRO"));
-                    Aluno.setCep(resultado.getString("CEP"));
-                }
-            }
-            return Aluno;
+    Conexao conexao = new Conexao();
+    try {
+        PreparedStatement sql = conexao.getConexao().prepareStatement("SELECT * FROM Alunos WHERE ID = ?");
+        sql.setInt(1, id);
+        ResultSet resultado = sql.executeQuery();
 
-        } catch (SQLException e) {
-            throw new RuntimeException("Query de select (get) incorreta");
-        } finally {
-            conexao.closeConexao();
+        if (resultado.next()) {
+            Aluno aluno = new Aluno();
+            aluno.setId(resultado.getInt("ID"));
+            aluno.setNome(resultado.getString("NOME"));
+            aluno.setEmail(resultado.getString("EMAIL"));
+            aluno.setCelular(resultado.getString("CELULAR"));
+            aluno.setCpf(resultado.getString("CPF"));
+            aluno.setSenha(resultado.getString("SENHA"));
+            aluno.setEndereco(resultado.getString("ENDERECO"));
+            aluno.setCidade(resultado.getString("CIDADE"));
+            aluno.setBairro(resultado.getString("BAIRRO"));
+            aluno.setCep(resultado.getString("CEP"));
+            return aluno;
         }
+        return null; // Aluno não encontrado
+    } catch (SQLException e) {
+        throw new RuntimeException("Erro ao buscar aluno no banco de dados.", e);
+    } finally {
+        conexao.closeConexao();
     }
+}
 
     public void Alterar(Aluno Aluno) throws Exception {
         Conexao conexao = new Conexao();
         try {
-            PreparedStatement sql = conexao.getConexao().prepareStatement("UPDATE Alunos SET nome = ?, email = ?, celular = ?, cpf = ?, senha = ?, endereco = ?, cidade = ?, bairro = ?, cep = ?  WHERE ID = ? ");
+            PreparedStatement sql = conexao.getConexao().prepareStatement("UPDATE Alunos SET nome = ?, email = ?, celular = ?, cpf = ?, senha = ?, endereco = ?, cidade = ?, bairro = ?, cep = ? WHERE ID = ?");
             sql.setString(1, Aluno.getNome());
             sql.setString(2, Aluno.getEmail());
             sql.setString(3, Aluno.getCelular());
@@ -76,6 +75,7 @@ public class AlunoDAO {
             sql.setString(8, Aluno.getBairro());
             sql.setString(9, Aluno.getCep());
             sql.setInt(10, Aluno.getId());
+            System.out.println("SQL: " + sql.toString());
             sql.executeUpdate();
 
         } catch (SQLException e) {
@@ -127,6 +127,8 @@ public class AlunoDAO {
         } finally {
             conexao.closeConexao();
         }
+        
+     System.out.println("Tamanho da lista de alunos: " + meusAlunos.size());
         return meusAlunos;
     }
 

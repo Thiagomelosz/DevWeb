@@ -30,6 +30,20 @@ public class Aluno {
         this.cpf = cpf;
         this.senha = senha;
     }
+    
+    public Aluno(int id, String nome, String email, String celular, String cpf, String senha, String endereco, String cidade, String bairro, String cep) {
+    this.id = id;
+    this.nome = nome;
+    this.email = email;
+    this.celular = celular;
+    this.cpf = cpf;
+    this.senha = senha;
+    this.endereco = endereco;
+    this.cidade = cidade;
+    this.bairro = bairro;
+    this.cep = cep;
+}
+
 
     public Aluno() {
         this.id = 0;

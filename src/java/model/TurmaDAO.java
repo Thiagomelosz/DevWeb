@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class TurmaDAO {
 
-    // Método para inserir uma nova turma
+
   public boolean insert(Turma t) {
     Conexao conexao = new Conexao();
     try {
@@ -42,7 +42,7 @@ public class TurmaDAO {
 }
 
 
-    // Método para listar todas as turmas
+ 
 public ArrayList<Turma> getAll() {
     ArrayList<Turma> turmas = new ArrayList<>();
     Conexao conexao = new Conexao();
@@ -74,7 +74,7 @@ public ArrayList<Turma> getAll() {
     return turmas;
 }
 
-    // Método para obter uma turma específica pelo ID
+
     public Turma get(int id) {
         Conexao conexao = new Conexao();
         Turma turma = null;
@@ -85,7 +85,7 @@ public ArrayList<Turma> getAll() {
             ResultSet rs = sql.executeQuery();
             
             if (rs.next()) {
-                // Cria o objeto Turma com os dados encontrados
+  
                 turma = new Turma(
                 rs.getInt("id"),
                 rs.getInt("professor_id"),
@@ -103,7 +103,6 @@ public ArrayList<Turma> getAll() {
         return turma;
     }
 
-    // Método para alterar uma turma
     public void update(Turma t) {
         Conexao conexao = new Conexao();
         try {
@@ -130,7 +129,6 @@ public ArrayList<Turma> getAll() {
         }
     }
 
-    // Método para excluir uma turma
     public void delete(int id) {
         Conexao conexao = new Conexao();
         try {

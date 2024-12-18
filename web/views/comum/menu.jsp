@@ -21,6 +21,7 @@
                             <a class="nav-link <%= currentURI.contains("/admin/dashboard") ? "active" : "" %>" href="/aplicacaoMVC/admin/dashboard">Dashboard</a>
                             <a class="nav-link <%= currentURI.contains("/admin/DisciplinaController") ? "active" : "" %>" href="/aplicacaoMVC/admin/DisciplinaController?acao=Listar">Disciplinas</a>
                             <a class="nav-link <%= currentURI.contains("/admin/TurmaController") ? "active" : "" %>" href="/aplicacaoMVC/admin/TurmaController?acao=Listar">Turmas</a>
+                            <a class="nav-link <%= currentURI.contains("/admin/AlunoController") ? "active" : "" %>" href="/aplicacaoMVC/admin/AlunoController?acao=Listar">Alunos</a>
                             <a class="nav-link <%= currentURI.contains("/admin/RegistrarUsuario") ? "active" : "" %>" href="/aplicacaoMVC/admin/RegistrarUsuario">Usuarios</a>
                             <a class="nav-link <%= currentURI.contains("/admin/RelatorioController") ? "active" : "" %>" href="/aplicacaoMVC//admin/RelatorioController?acao=Listar">Relatorio</a>
                             

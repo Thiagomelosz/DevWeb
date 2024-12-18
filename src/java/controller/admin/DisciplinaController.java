@@ -19,7 +19,6 @@ public class DisciplinaController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // get parametro ação indicando o que fazer
         String acao = (String) request.getParameter("acao");
         Disciplina disciplina = new Disciplina();
         DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
@@ -36,7 +35,6 @@ public class DisciplinaController extends HttpServlet {
             case "Alterar":
             case "Excluir":
 
-                // get parametro ação indicando sobre qual categoria será a ação
                 int id = Integer.parseInt(request.getParameter("id"));
                 disciplina = disciplinaDAO.get(id);
 
