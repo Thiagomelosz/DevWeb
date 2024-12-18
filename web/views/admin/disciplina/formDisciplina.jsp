@@ -74,6 +74,21 @@
             </div>
         </div>
         <script src="http://localhost:8080/aplicacaoMVC/views/bootstrap/bootstrap.bundle.min.js"></script>
+        <script>
+            // Bloquear valores negativos no campo de carga horária
+            document.addEventListener('DOMContentLoaded', () => {
+                const cargaHorariaInput = document.querySelector('input[name="cargaHoraria"]');
+
+                if (cargaHorariaInput) {
+                    cargaHorariaInput.addEventListener('input', () => {
+                        // Verifica se o valor é negativo
+                        if (cargaHorariaInput.value < 0) {
+                            cargaHorariaInput.value = ""; // Limpa o campo
+                        }
+                    });
+                }
+            });
+        </script>
     </body>
 
 </html>
