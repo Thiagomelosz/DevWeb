@@ -11,9 +11,8 @@ public class Aluno {
     private String cidade;
     private String bairro;
     private String cep;
-    private String nota;
+    private String nota; 
     
-
     public Aluno(String nome, String email, String celular, String cpf, String senha, String endereco, String cidade, String bairro, String cep) {
         this.nome = nome;
         this.email = email;
@@ -43,7 +42,6 @@ public class Aluno {
     this.bairro = bairro;
     this.cep = cep;
 }
-
 
     public Aluno() {
         this.id = 0;

@@ -28,18 +28,16 @@
         <div class="row mt-5">
             <div class="col-sm-4 offset-3">
                 <%
-                    // Recupera a turma e a ação
                     Aluno aluno = (Aluno) request.getAttribute("aluno");
                     if (aluno == null) {
-                        aluno = new Aluno(); // Inicializa para evitar erro
+                        aluno = new Aluno();
                     }
 
                     String acao = (String) request.getAttribute("acao");
                     if (acao == null) {
-                        acao = "Incluir"; // Define um valor padrão
+                        acao = "Incluir";
                     }
 
-                    // Exibe a ação que será realizada
                     switch (acao) {
                         case "Alterar":
                             out.println("<h1>Alterar Turma</h1>");
@@ -48,7 +46,6 @@
                             out.println("<h1>Excluir Turma</h1>");
                             break;
                     }
-
 
                     String msgError = (String) request.getAttribute("msgError");
                     if ((msgError != null) && (!msgError.isEmpty())) {%>

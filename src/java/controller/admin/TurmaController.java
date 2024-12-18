@@ -88,18 +88,17 @@ public class TurmaController extends HttpServlet {
                 break;
         }
     }
-
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Recuperar parâmetros do formulário
         String acao = request.getParameter("acao");
         String idParam = request.getParameter("id");
         System.out.println("ID recebido no POST: " + idParam); // Log do ID
         int id = 0;
         try {
-            id = Integer.parseInt(idParam); // Tentando converter o ID para inteiro
+            id = Integer.parseInt(idParam); 
             System.out.println("ID convertido no POST: " + id); // Log após conversão
         } catch (NumberFormatException e) {
             System.out.println("Erro ao tentar converter o ID no POST: " + e.getMessage());
@@ -110,7 +109,6 @@ public class TurmaController extends HttpServlet {
             return;
         }
 
-        // Verificar se o ID está vindo como zero
         if (id == 0) {
             System.out.println("ID está vindo como zero no POST.");
         }

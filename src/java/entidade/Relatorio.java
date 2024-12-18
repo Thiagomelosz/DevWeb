@@ -6,7 +6,7 @@ public class Relatorio {
     private String alunoNome;
     private double nota;
 
-    // Getters e Setters
+
     public int getAlunoId() {
         return alunoId;
     }

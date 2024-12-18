@@ -46,14 +46,11 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
 
         case "GerarRelatorio":
             try {
-                // Pegar o ID da turma passada como parâmetro
                 int turmaId = Integer.parseInt(request.getParameter("id"));
-
-                // Obter os dados do relatório
+           
                 RelatorioDAO relatorioDAO = new RelatorioDAO();
                 List<Relatorio> listaRelatorios = relatorioDAO.getRelatorioPorTurmaId(turmaId);
 
-                // Adicionar os dados ao request e enviar para a página de relatório
                 request.setAttribute("listaRelatorios", listaRelatorios);
                 request.setAttribute("idTurma", turmaId);
                 rd = request.getRequestDispatcher("/views/admin/RelatorioGeral/detalhesRelatorio.jsp");

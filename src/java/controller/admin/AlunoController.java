@@ -32,19 +32,12 @@ public class AlunoController extends HttpServlet {
 
         switch (acao) {
             case "Listar":
-                // Obtenha a lista de alunos
+  
                 ArrayList<Aluno> listaAlunos = alunoDAO.ListaDeAlunos();
-
-                // Adicione logs para verificar o tamanho da lista
                 System.out.println("Tamanho da lista de alunos: " + (listaAlunos == null ? "null" : listaAlunos.size()));
-
-                // Atribua a lista ao request
                 request.setAttribute("listaAluno", listaAlunos);
 
-                // Log para garantir que a lista foi setada corretamente
                 System.out.println("Lista de alunos foi passada para a JSP.");
-
-                // Redirecione para a JSP
                 rd = request.getRequestDispatcher("/views/admin/Alunos/listaAluno.jsp");
                 rd.forward(request, response);
                 break;
@@ -54,13 +47,13 @@ public class AlunoController extends HttpServlet {
                 try {
                     int id = Integer.parseInt(request.getParameter("id")); // Validação do ID
                     try {
-                        Aluno aluno = alunoDAO.getAluno(id); // Chamada que pode lançar Exception
+                        Aluno aluno = alunoDAO.getAluno(id); 
                         request.setAttribute("aluno", aluno);
                         request.setAttribute("acao", acao);
                         rd = request.getRequestDispatcher("/views/admin/Alunos/formAluno.jsp");
                         rd.forward(request, response);
                     } catch (Exception e) {
-                        // Tratamento de erros do getAluno
+
                         request.setAttribute("msgError", "Erro ao buscar o aluno: " + e.getMessage());
                         rd = request.getRequestDispatcher("/views/admin/Alunos/listaAluno.jsp");
                         rd.forward(request, response);
@@ -136,7 +129,6 @@ public class AlunoController extends HttpServlet {
                     request.setAttribute("msgOperacaoRealizada", "Exclusão realizada com sucesso.");
                     break;
             }
-
             request.setAttribute("link", "/aplicacaoMVC/admin/AlunoController?acao=Listar");
             rd = request.getRequestDispatcher("/views/comum/showMessage.jsp");
             rd.forward(request, response);

@@ -25,7 +25,6 @@ public class AutenticaController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Redireciona para a página de login
         RequestDispatcher rd = request.getRequestDispatcher("/views/autenticacao/formLogin.jsp");
         rd.forward(request, response);
     }
@@ -36,12 +35,10 @@ public class AutenticaController extends HttpServlet {
 
         RequestDispatcher rd = null;
         
-        // Pegando os parâmetros do request
         String cpf_user = request.getParameter("cpf");
         String senha_user = request.getParameter("senha");
         String tipo_user = request.getParameter("tipo_usuario");
 
-        // Verificando se algum campo não foi preenchido
         if (cpf_user.isEmpty() || senha_user.isEmpty() || tipo_user.isEmpty()) {
             request.setAttribute("msgError", "Usuário e/ou senha incorreto");
             rd = request.getRequestDispatcher("/views/autenticacao/formLogin.jsp");
@@ -49,10 +46,8 @@ public class AutenticaController extends HttpServlet {
             return;
         }
 
-        // Variável para armazenar o usuário obtido após a autenticação
         Object usuarioObtido = null;
 
-        // Dependendo do tipo de usuário, consulta a tabela correspondente
         try {
             if (tipo_user.equals("administrador")) {
                 Administrador administrador = new Administrador(cpf_user, senha_user);
@@ -68,13 +63,11 @@ public class AutenticaController extends HttpServlet {
                 usuarioObtido = alunoDAO.Logar(aluno);
             }
 
-            // Verifica se o login foi bem-sucedido
             if (usuarioObtido != null) {
                 // Salvar o usuário na sessão
                 HttpSession session = request.getSession();
                 session.setAttribute(tipo_user, usuarioObtido);
 
-                // Redirecionar para a página apropriada de acordo com o tipo de usuário
                 switch (tipo_user) {
                     case "administrador":
                         rd = request.getRequestDispatcher("/admin/dashboard");
@@ -92,13 +85,11 @@ public class AutenticaController extends HttpServlet {
                 }
                 rd.forward(request, response);
             } else {
-                // Se o login falhar, exibe mensagem de erro
                 request.setAttribute("msgError", "Usuário e/ou senha incorreto");
                 rd = request.getRequestDispatcher("/views/autenticacao/formLogin.jsp");
                 rd.forward(request, response);
             }
         } catch (Exception ex) {
-            // Tratar a exceção de forma mais detalhada
             System.out.println("Erro na autenticação: " + ex.getMessage());
             request.setAttribute("msgError", "Erro na autenticação. Tente novamente.");
             rd = request.getRequestDispatcher("/views/autenticacao/formLogin.jsp");

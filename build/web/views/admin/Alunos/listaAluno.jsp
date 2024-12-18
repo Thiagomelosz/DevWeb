@@ -33,7 +33,7 @@
                         </thead>
                         <tbody>
                             <%
-                                // Obtendo o atributo e verificando se a lista está vazia ou nula
+                                //verificando se a lista é null
                                 ArrayList<Aluno> listaAlunos = (ArrayList<Aluno>) request.getAttribute("listaAluno");
                                 if (listaAlunos == null) {
                                     System.out.println("A lista de alunos é NULA na JSP!");

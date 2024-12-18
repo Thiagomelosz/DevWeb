@@ -1,0 +1,54 @@
+[33mcommit b56f415c948e01d678f8e5fbd7107d15f8179db6[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m
+Merge: 4e09653 4c5dec0
+Author: Thiago <thiagomeloper@hotmail.com>
+Date:   Wed Dec 18 13:36:21 2024 -0300
+
+    Merge branch 'master' of https://github.com/Thiagomelosz/DevWeb
+
+[33mcommit 4e09653ea9f6aafa7441a9d24ee2eabf13205728[m
+Author: Thiago <thiagomeloper@hotmail.com>
+Date:   Wed Dec 18 13:36:07 2024 -0300
+
+    CRUDs OK
+
+[33mcommit 3d0ec498a8a9c988a083ffd65b5a4e6a5d87124b[m
+Author: Thiago <thiagomeloper@hotmail.com>
+Date:   Wed Dec 18 13:28:25 2024 -0300
+
+    CRUDs OK
+
+[33mcommit 4c5dec0fee4ff3c4be5e6a313b43b52e384b81d1[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: Eduardo <eduardibarros@gmail.com>
+Date:   Wed Dec 18 12:26:07 2024 -0300
+
+    bloqueando inserção de valores negativos no campo carga horaria
+
+[33mcommit cb842ab527ad33b9c9dd78957cc6156ef859f523[m
+Author: Thiago <thiagomeloper@hotmail.com>
+Date:   Tue Dec 17 23:38:55 2024 -0300
+
+    Faltando DELETE e ALTERAR no Aluno
+
+[33mcommit 7567777cf23d8bb6d95fbd77b23dacbdd1c5112a[m
+Author: Thiago <thiagomeloper@hotmail.com>
+Date:   Mon Dec 9 23:39:55 2024 -0300
+
+    Faltando ALTERAR e EXCLUIR
+
+[33mcommit 34d0eb5dd18c51ac80e3f9e720b0001efe58cd0a[m
+Author: Thiago <thiagomeloper@hotmail.com>
+Date:   Tue Dec 3 19:29:52 2024 -0300
+
+    Login funcionando porem necessita atenção
+
+[33mcommit 3f6c751897923224d5a6f5a2bc61c04b84c2c904[m
+Author: Thiago <thiagomeloper@hotmail.com>
+Date:   Tue Dec 3 19:24:13 2024 -0300
+
+    Fazendo peripercias com LG
+
+[33mcommit 17fc481b67c16d2633fe1aa6ac49b96cb5e8d069[m
+Author: Thiago <thiagomeloper@hotmail.com>
+Date:   Tue Nov 12 23:45:52 2024 -0300
+
+    Primeiro commit do projeto DevWEB
