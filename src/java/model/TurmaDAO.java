@@ -76,24 +76,24 @@ public ArrayList<Turma> getAll() {
 
     // Método para obter uma turma específica pelo ID
     public Turma get(int id) {
-        Turma turma = null;
         Conexao conexao = new Conexao();
+        Turma turma = null;
         try {
-            // Consulta para buscar uma turma pelo ID
-            String sqlQuery = "SELECT * FROM turmas WHERE id = ?";
-            
-            PreparedStatement sql = conexao.getConexao().prepareStatement(sqlQuery);
+            PreparedStatement sql = conexao.getConexao().prepareStatement("SELECT * FROM turmas WHERE id = ?");         
+           
             sql.setInt(1, id);
             ResultSet rs = sql.executeQuery();
             
             if (rs.next()) {
                 // Cria o objeto Turma com os dados encontrados
-                turma = new Turma();
-                turma.setProfessorId(rs.getInt("professor_id"));
-                turma.setDisciplinaId(rs.getInt("disciplina_id"));
-                turma.setAlunoId(rs.getInt("aluno_id"));
-                turma.setCodigoTurma(rs.getString("codigo_turma"));
-                turma.setNota(rs.getDouble("nota"));
+                turma = new Turma(
+                rs.getInt("id"),
+                rs.getInt("professor_id"),
+                rs.getInt("disciplina_id"),
+                rs.getInt("aluno_id"),
+                rs.getString("codigo_turma"),
+                rs.getDouble("nota")
+                );
             }
         } catch (SQLException e) {
             System.err.println("Erro ao buscar turma: " + e.getMessage());
@@ -108,7 +108,7 @@ public ArrayList<Turma> getAll() {
         Conexao conexao = new Conexao();
         try {
             // Consulta SQL para atualizar as informações de uma turma
-            String sqlQuery = "UPDATE turmas SET professor_id = ?, disciplina_id = ?, aluno_id = ?, id = ?, nota = ? WHERE id = ?";
+            String sqlQuery = "UPDATE turmas SET professor_id = ?, disciplina_id = ?, aluno_id = ?, codigo_turma = ?, nota = ? WHERE id = ?";
             
             PreparedStatement sql = conexao.getConexao().prepareStatement(sqlQuery);
             
@@ -118,6 +118,7 @@ public ArrayList<Turma> getAll() {
             sql.setInt(3, t.getAlunoId());
             sql.setString(4, t.getCodigoTurma());
             sql.setDouble(5, t.getNota());
+            sql.setInt(6, t.getId()); 
             
             // Executando a atualização
             sql.executeUpdate();

@@ -141,7 +141,6 @@ public class AdministradorDAO {
                 return AdministradorObtido;
             }
         return null;        
-    //return null;
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());

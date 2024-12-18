@@ -25,31 +25,30 @@ id,nome,requisito,ementa,cargahoraria
 public class DisciplinaDAO implements Dao<Disciplina> {
 
     @Override
-    public Disciplina get(int id) {
-        Conexao conexao = new Conexao();
-        Disciplina disciplina = new Disciplina();
-        try {
-            PreparedStatement sql = conexao.getConexao().prepareStatement("SELECT * FROM disciplina WHERE ID = ? ");
-            sql.setInt(1, id);
-            ResultSet resultado = sql.executeQuery();
+public Disciplina get(int id) {
+    Conexao conexao = new Conexao();
+    Disciplina disciplina = null; // Inicializa como null para indicar ausência de registro
+    try {
+        PreparedStatement sql = conexao.getConexao().prepareStatement("SELECT * FROM disciplina WHERE id = ?");
+        sql.setInt(1, id);
+        ResultSet resultado = sql.executeQuery();
 
-            if (resultado != null) {
-                while (resultado.next()) {
-                    disciplina.setId(Integer.parseInt(resultado.getString("ID")));
-                    disciplina.setNome(resultado.getString("NOME"));
-                    disciplina.setRequisito(resultado.getString("REQUISITO"));
-                    disciplina.setEmenta(resultado.getString("EMENTA"));
-                    disciplina.setCargahoraria(Integer.parseInt(resultado.getString("CARGAHORARIA")));
-                    
-                }
-            }
-        } catch (SQLException e) {
-            System.err.println("Query de select (get disciplina) incorreta");
-        } finally {
-            conexao.closeConexao();
+        if (resultado.next()) { // Verifica se há resultados
+            disciplina = new Disciplina(
+                resultado.getInt("id"),          // Usa getInt para colunas numéricas
+                resultado.getString("nome"),    // Nome da coluna em minúsculo
+                resultado.getString("requisito"),
+                resultado.getString("ementa"),
+                resultado.getInt("carga_horaria")
+            );
         }
-        return disciplina;
+    } catch (SQLException e) {
+        System.err.println("Erro ao buscar disciplina: " + e.getMessage());
+    } finally {
+        conexao.closeConexao();
     }
+    return disciplina;
+}
 
     @Override
     public void insert(Disciplina t) {
@@ -74,36 +73,51 @@ public class DisciplinaDAO implements Dao<Disciplina> {
     public void update(Disciplina t) {
         Conexao conexao = new Conexao();
         try {
-            PreparedStatement sql = conexao.getConexao().prepareStatement("UPDATE disciplina SET nome = ?  WHERE ID = ? ");
-            sql.setInt(1, t.getId());
-            sql.setString(2, t.getNome());
-            sql.setString(2, t.getRequisito());
-            sql.setString(2, t.getEmenta());
-            sql.setInt(1, t.getCargahoraria());
+            PreparedStatement sql = conexao.getConexao().prepareStatement("UPDATE disciplina SET nome = ?, requisito = ?, ementa = ?, carga_horaria = ? WHERE ID = ?");
+            sql.setString(1, t.getNome());         // Nome da disciplina
+            sql.setString(2, t.getRequisito());    // Requisito
+            sql.setString(3, t.getEmenta());       // Ementa
+            sql.setInt(4, t.getCargahoraria());    // Carga horária
+            sql.setInt(5, t.getId());  
 
             sql.executeUpdate();
 
-        } catch (SQLException e) {
-            System.err.println("Query de update (alterar disciplina) incorreta");
-        } finally {
-            conexao.closeConexao();
+            int rowsAffected = sql.executeUpdate();
+        if (rowsAffected > 0) {
+            System.out.println("Disciplina atualizada com sucesso!");
+        } else {
+            System.err.println("Nenhuma disciplina foi encontrada para atualizar. Verifique o ID.");
         }
+
+    } catch (SQLException e) {
+        System.err.println("Query de update (alterar disciplina) incorreta: " + e.getMessage());
+    } finally {
+        conexao.closeConexao();
     }
+}
 
     @Override
-    public void delete(int id) {
-        Conexao conexao = new Conexao();
-        try {
-            PreparedStatement sql = conexao.getConexao().prepareStatement("DELETE FROM disciplina WHERE ID = ? ");
-            sql.setInt(1, id);
-            sql.executeUpdate();
+public void delete(int id) {
+    Conexao conexao = new Conexao();
+    try {
+        System.out.println("Tentando excluir disciplina com ID: " + id);  // Verificando o ID
+        PreparedStatement sql = conexao.getConexao().prepareStatement("DELETE FROM disciplina WHERE id = ?");
+        sql.setInt(1, id);
 
-        } catch (SQLException e) {
-            System.err.println("Query de delete (excluir disciplina) incorreta");
-        } finally {
-            conexao.closeConexao();
+        int rowsAffected = sql.executeUpdate();
+        if (rowsAffected > 0) {
+            System.out.println("Disciplina excluída com sucesso!");
+        } else {
+            System.err.println("Nenhuma disciplina foi encontrada para exclusão. Verifique o ID.");
         }
+
+    } catch (SQLException e) {
+        System.err.println("Query de delete (excluir disciplina) incorreta: " + e.getMessage());
+    } finally {
+        conexao.closeConexao();
     }
+}
+
 
     @Override
 
