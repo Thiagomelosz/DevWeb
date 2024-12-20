@@ -23,7 +23,7 @@
                             <a class="nav-link <%= currentURI.contains("/admin/TurmaController") ? "active" : "" %>" href="/aplicacaoMVC/admin/TurmaController?acao=Listar">Turmas</a>
                             <a class="nav-link <%= currentURI.contains("/admin/AlunoController") ? "active" : "" %>" href="/aplicacaoMVC/admin/AlunoController?acao=Listar">Alunos</a>
                             <a class="nav-link <%= currentURI.contains("/admin/ProfessorController") ? "active" : "" %>" href="/aplicacaoMVC/admin/ProfessorController?acao=Listar">Professores</a>
-                            <a class="nav-link <%= currentURI.contains("/admin/RegistrarUsuario") ? "active" : "" %>" href="/aplicacaoMVC/admin/RegistrarUsuario">Usuarios</a>
+                            <a class="nav-link <%= currentURI.contains("/admin/AdminController") ? "active" : "" %>" href="/aplicacaoMVC/admin/AdminController?acao=Listar">Admin</a>
                             <a class="nav-link <%= currentURI.contains("/admin/RelatorioController") ? "active" : "" %>" href="/aplicacaoMVC//admin/RelatorioController?acao=Listar">Relatorio</a>
                             
                             <a class="nav-link <%= currentURI.contains("/admin/logOut") ? "active" : "" %>" href="/aplicacaoMVC/admin/logOut">Logout</a>

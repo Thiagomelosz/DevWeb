@@ -19,7 +19,8 @@
 
                 <h1>Área Restrita</h1>
                 <h2>Lista de Professores</h2>
-
+                
+                <a href="/aplicacaoMVC/admin/ProfessorController?acao=Incluir" class="mb-2 btn btn-primary">Criar Professor</a>
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>

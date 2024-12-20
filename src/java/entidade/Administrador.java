@@ -1,12 +1,22 @@
 package entidade;
 
 public class Administrador {
-
     private int id;
     private String nome;
     private String cpf;
     private String endereco;
+    private int aprovado;
     private String senha;
+    
+ 
+    public Administrador(int id, String nome, String cpf, String senha, int aprovado, String endereco){
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.endereco = endereco;
+        this.aprovado = aprovado;
+        this.senha = senha;
+    }
 
     public Administrador(String nome, String cpf, String endereco, String senha) {
         this.nome = nome;
@@ -55,6 +65,14 @@ public class Administrador {
     public String getEndereco() {
         return endereco;
     }
+    
+    public int getAprovado() {
+        return aprovado;
+    }
+    
+    public void setAprovado(int aprovado) {
+        this.aprovado = aprovado;
+        }
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
