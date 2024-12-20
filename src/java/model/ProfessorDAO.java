@@ -71,12 +71,13 @@ public class ProfessorDAO {
         Conexao conexao = new Conexao();
         try {
             // id, nome, email, cpf, senha
-            PreparedStatement sql = conexao.getConexao().prepareStatement("UPDATE Professores SET nome = ?, email = ?, cpf = ?, senha = ? WHERE ID = ? ");
+            PreparedStatement sql = conexao.getConexao().prepareStatement("UPDATE Professores SET nome = ?, email = ?, cpf = ?, senha = ? WHERE ID = ?");
             sql.setString(1, Professor.getNome());
             sql.setString(2, Professor.getEmail());
-            sql.setString(4, Professor.getCpf());
-            sql.setString(5, Professor.getSenha());
-            sql.setInt(10, Professor.getId());
+            sql.setString(3, Professor.getCpf());
+            sql.setString(4, Professor.getSenha());
+            sql.setInt(5, Professor.getId());
+            System.out.println("SQL: " + sql.toString());
             sql.executeUpdate();
 
         } catch (SQLException e) {
@@ -91,7 +92,9 @@ public class ProfessorDAO {
         try {
             PreparedStatement sql = conexao.getConexao().prepareStatement("DELETE FROM Professores WHERE ID = ? ");
             sql.setInt(1, Professor.getId());
+            System.out.println("SQL: " + sql.toString());
             sql.executeUpdate();
+            
 
         } catch (SQLException e) {
             throw new RuntimeException("Query de delete (excluir) incorreta");

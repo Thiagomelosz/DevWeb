@@ -19,8 +19,7 @@
             background-color: #f4f6f9;
         }
 
-        /* Seção Hero */
-        .hero-section {
+       .hero-section {
             background-color: #f8f9fa;
             padding: 80px 0;
             text-align: center;
@@ -32,19 +31,15 @@
             font-weight: bold;
             color: #343a40;
         }
-
         .hero-section p {
             font-size: 1.25rem;
             color: #6c757d;
         }
-
-        /* Seção de Notícias */
         .news-section {
             background-color: #e9ecef;
             padding: 40px 0;
             margin-top: 20px;
         }
-
         .news-section h3 {
             font-size: 2rem;
             font-weight: bold;
@@ -52,7 +47,6 @@
             margin-bottom: 30px;
             color: #007bff;
         }
-
         .news-item {
             display: flex;
             justify-content: space-between;
@@ -63,36 +57,29 @@
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-
         .news-item h5 {
             font-size: 1.5rem;
             font-weight: bold;
             color: #343a40;
         }
-
         .news-item p {
             color: #6c757d;
             font-size: 1rem;
             margin-top: 10px;
         }
-
         .news-item a {
             text-decoration: none;
             font-weight: bold;
             color: #007bff;
         }
-
         .news-item a:hover {
             text-decoration: underline;
         }
-
-        /* Seção de Eventos */
         .events-section {
             padding: 40px 0;
             background-color: #f1f3f5;
             margin-top: 40px;
         }
-
         .events-section h3 {
             font-size: 2rem;
             font-weight: bold;
@@ -100,7 +87,6 @@
             margin-bottom: 30px;
             color: #28a745;
         }
-
         .event-item {
             display: flex;
             justify-content: space-between;
@@ -111,13 +97,11 @@
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-
         .event-item h5 {
             font-size: 1.5rem;
             font-weight: bold;
             color: #343a40;
         }
-
         .event-item p {
             color: #6c757d;
             font-size: 1rem;
@@ -131,7 +115,6 @@
             <!-- Menu -->
             <jsp:include page="../comum/menu.jsp" />
 
-            <!-- Hero Section -->
             <section class="hero-section">
                 <h1>Bem-vindo ao Sistema Escolar</h1>
                 <p>Acompanhe as últimas notícias e eventos da nossa escola.</p>
@@ -145,7 +128,6 @@
             </div>
 
 
-            <!-- Notícias da Escola -->
             <section class="news-section">
                 <h3>Últimas Notícias</h3>
 
