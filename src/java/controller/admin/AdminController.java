@@ -35,6 +35,23 @@ public class AdminController extends HttpServlet {
         System.out.println("DAO de Administrador instanciado.");
 
         switch (acao) {
+         case "Aprovar":
+            try {
+                int id = Integer.parseInt(request.getParameter("id"));
+                administradorDAO.aprovarAdmin(id);
+
+                // Após a aprovação, redireciona para a lista de administradores
+                response.sendRedirect("AdminController?acao=Listar");
+            } catch (Exception e) {
+                // Em caso de erro, adiciona uma mensagem e redireciona para a lista
+                System.out.println("Erro ao aprovar administrador: " + e.getMessage());
+                request.setAttribute("msgError", "Erro ao aprovar administrador: " + e.getMessage());
+                rd = request.getRequestDispatcher("/views/admin/Administrador/listaAdmin.jsp");
+                rd.forward(request, response);
+            }
+            break;
+
+            
             case "Listar":
                 System.out.println("Listando administradores...");
                 ArrayList<Administrador> listaAdmin = administradorDAO.ListaDeAdministrador();

@@ -1,4 +1,4 @@
-package controller.admin;
+package controller.aluno;
 
 import entidade.Relatorio;
 import entidade.Aluno;
@@ -17,8 +17,8 @@ import model.TurmaDAO;
 import model.RelatorioDAO;
 
 
-@WebServlet(name = "RelatorioController", urlPatterns = {"/admin/RelatorioController"})
-public class RelatorioController extends HttpServlet {
+@WebServlet(name = "TurmasController", urlPatterns = {"/aluno/TurmasController"})
+public class TurmasController extends HttpServlet {
 
 @Override
 protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -29,7 +29,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
 
     if (acao == null || acao.isEmpty()) {
         request.setAttribute("msgError", "Ação inválida.");
-        rd = request.getRequestDispatcher("/views/admin/RelatorioGeral/listaRelatorio.jsp");
+        rd = request.getRequestDispatcher("/views/Aluno/Turmas/listaTurmas.jsp");
         rd.forward(request, response);
         return;
     }
@@ -40,7 +40,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
             TurmaDAO turmaDAO = new TurmaDAO();
             ArrayList<Turma> listaTurmas = turmaDAO.listaDeTurmas();
             request.setAttribute("listaTurmas", listaTurmas);
-            rd = request.getRequestDispatcher("/views/admin/RelatorioGeral/listaRelatorio.jsp");
+            rd = request.getRequestDispatcher("/views/Aluno/Turmas/listaTurmas.jsp");
             rd.forward(request, response);
             break;
 
@@ -53,18 +53,18 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
 
                 request.setAttribute("listaRelatorios", listaRelatorios);
                 request.setAttribute("idTurma", turmaId);
-                rd = request.getRequestDispatcher("/views/admin/RelatorioGeral/detalhesRelatorio.jsp");
+                rd = request.getRequestDispatcher("/views/Aluno/Turmas/listaTurmas.jsp");
                 rd.forward(request, response);
             } catch (NumberFormatException e) {
                 request.setAttribute("msgError", "ID da turma inválido.");
-                rd = request.getRequestDispatcher("/views/admin/RelatorioGeral/listaRelatorio.jsp");
+                rd = request.getRequestDispatcher("/views/Aluno/Turmas/listaTurmas.jsp");
                 rd.forward(request, response);
             }
             break;
 
         default:
             request.setAttribute("msgError", "Ação inválida.");
-            rd = request.getRequestDispatcher("/views/admin/RelatorioGeral/listaRelatorio.jsp");
+            rd = request.getRequestDispatcher("/views/Aluno/Turmas/listaTurmas.jsp");
             rd.forward(request, response);
             break;
     }

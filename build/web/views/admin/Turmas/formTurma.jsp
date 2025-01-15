@@ -96,7 +96,7 @@
 
                     <div class="mb-3">
                         <label for="codigoTurma" class="form-label">Codigo da Turma</label>
-                        <input type="text" name="codigoTurma" <%= acao.equals("Excluir") ? "readonly" : ""%> value="<%=turma.getCodigoTurma()%>" class="form-control">
+                        <input type="number" min="1" max="99" name="codigoTurma" <%= acao.equals("Excluir") ? "readonly" : ""%> value="<%=turma.getCodigoTurma()%>" class="form-control">
                     </div>
 
                     <div class="mb-3">

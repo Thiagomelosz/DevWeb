@@ -54,8 +54,7 @@
                         </div>
                     <% }%>
 
-                    // Formulário para enviar dados
-                %>
+                  
                 <form action="/aplicacaoMVC/admin/AdminController" method="POST">
                     <!-- Campo oculto para enviar a acao -->
                     <input type="hidden" name="acao" value="<%= acao %>" />
@@ -77,12 +76,8 @@
                         <input type="text" name="cpf" <%= acao.equals("Excluir") ? "readonly" : ""%> value="<%=administrador.getCpf()%>" class="form-control">
                     </div>
                     
-                    <div class="mb-3">
-                        <label for="Aprovado" class="form-label">Aprovado</label>
-                        <input type="number" name="aprovado" <%= acao.equals("Excluir") ? "readonly" : ""%> value="<%=administrador.getAprovado()%>" class="form-control">
-                    </div>
-
-                    
+                    <input type="hidden" name="aprovado" value="0">
+                                      
                     <div class="mb-3">
                         <label for="Endereco" class="form-label">Endereço</label>
                         <input type="text" name="endereco" <%= acao.equals("Excluir") ? "readonly" : ""%> value="<%= administrador.getEndereco() %>" class="form-control">

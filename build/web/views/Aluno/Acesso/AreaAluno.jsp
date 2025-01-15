@@ -1,31 +1,37 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" import="entidade.Aluno" %>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/aplicacaoMVC/home">Home</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
+
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="#">
+        <title>Área Restrita</title>
+        <link href="http://localhost:8080/aplicacaoMVC/views/bootstrap/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <jsp:include page="../../comum/menu.jsp" />
+            <div class="mt-5">
+                <h1>Área Restrita</h1>
                 <%
-                    // testar se está logado
-                    HttpSession sessao = request.getSession(false);
-                    if (sessao != null) {
-                        Aluno AlunoLogado = (Aluno) session.getAttribute("aluno");
-                        if (AlunoLogado != null) { %>
-                            <a class="nav-link" href="/aplicacaoMVC/aluno/dashboard">Dashboard</a>
-                            <a class="nav-link" href="/aplicacaoMVC/aluno/CategoriaController?acao=Listar">Categorias</a>
-                            
-                            <a class="nav-link" href="/aplicacaoMVC/admin/logOut">Logout</a>
-                <%  } else { %>
+                    Aluno alunoLogado = (Aluno) session.getAttribute("aluno");
+                    
+                    if (alunoLogado == null) {
+                        // Se o aluno não está na sessão, redireciona para o login
+                        response.sendRedirect(request.getContextPath() + "/AutenticaController");
+
+                        return;
+                    }
+                %>
                 
-                            <a class="nav-link" href="/aplicacaoMVC/AutenticaController?acao=Login">Login</a>
-                <%    }
-                    }%>
-
-
-
+                <!-- Exibir os dados do aluno logado -->
+                <h3>Usuário logado com sucesso</h3>
+                <h2>Nome: <%= alunoLogado.getNome() %></h2>
             </div>
         </div>
-    </div>
-</nav>
+        
+        <script src="http://localhost:8080/aplicacaoMVC/views/bootstrap/bootstrap.bundle.min.js"></script>
+    </body>
+</html>

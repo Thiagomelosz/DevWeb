@@ -69,7 +69,7 @@
 
                     <div class="mb-3">
                         <label for="Email" class="form-label">Email</label>
-                        <input type="text" name="email" <%= acao.equals("Excluir") ? "readonly" : ""%> value="<%=professor.getEmail()%>" class="form-control">
+                        <input type="email" name="email" <%= acao.equals("Excluir") ? "readonly" : ""%> value="<%=professor.getEmail()%>" class="form-control">
                     </div>
                     
                     <div class="mb-3">

@@ -165,5 +165,25 @@ public class AdministradorDAO {
             conexao.closeConexao();
         }
     }
+    
+    public void aprovarAdmin(int id) throws SQLException {
+        Conexao conexao = new Conexao();
+        try {
+            String sql = "UPDATE Administrador SET aprovado = 1 WHERE id = ?";
+            PreparedStatement stmt = conexao.getConexao().prepareStatement(sql);
+            stmt.setInt(1, id);
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Administrador com ID " + id + " aprovado com sucesso.");
+            } else {
+                System.out.println("Nenhuma linha foi afetada. Verifique o ID.");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao aprovar administrador: " + e.getMessage());
+        } finally {
+            conexao.closeConexao();
+        }
+    }
+
 
 }

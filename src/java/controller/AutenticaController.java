@@ -15,85 +15,103 @@ import model.AdministradorDAO;
 import model.AlunoDAO;
 import model.ProfessorDAO;
 
-/**
- * Servlet de autenticação de usuários.
- */
 @WebServlet(name = "AutenticaController", urlPatterns = {"/AutenticaController"})
 public class AutenticaController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        System.out.println("Chamado o método GET, redirecionando para o formulário de login.");
+        
+        
+        HttpSession session = request.getSession(false); 
+        if (session != null && (session.getAttribute("aluno") != null ||
+                                session.getAttribute("professor") != null ||
+                                session.getAttribute("administrador") != null)) {
+            
+            response.sendRedirect(request.getContextPath() + "/home");
 
-        RequestDispatcher rd = request.getRequestDispatcher("/views/autenticacao/formLogin.jsp");
-        rd.forward(request, response);
+        } else {
+            // Exibe o formulário de login
+            RequestDispatcher rd = request.getRequestDispatcher("/views/autenticacao/formLogin.jsp");
+            rd.forward(request, response);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        RequestDispatcher rd = null;
         
-        String cpf_user = request.getParameter("cpf");
-        String senha_user = request.getParameter("senha");
-        String tipo_user = request.getParameter("tipo_usuario");
+        String cpf = request.getParameter("cpf");
+        String senha = request.getParameter("senha");
+        String tipoUsuario = request.getParameter("tipo_usuario");
 
-        if (cpf_user.isEmpty() || senha_user.isEmpty() || tipo_user.isEmpty()) {
-            request.setAttribute("msgError", "Usuário e/ou senha incorreto");
-            rd = request.getRequestDispatcher("/views/autenticacao/formLogin.jsp");
-            rd.forward(request, response);
+        System.out.println("Recebido: CPF=" + cpf + ", Tipo de Usuário=" + tipoUsuario);
+
+        
+        if (cpf == null || senha == null || tipoUsuario == null ||
+            cpf.isEmpty() || senha.isEmpty() || tipoUsuario.isEmpty()) {
+            redirecionarComErro(request, response, "Todos os campos são obrigatórios.");
             return;
         }
 
-        Object usuarioObtido = null;
-
         try {
-            if (tipo_user.equals("administrador")) {
-                Administrador administrador = new Administrador(cpf_user, senha_user);
-                AdministradorDAO administradorDAO = new AdministradorDAO();
-                usuarioObtido = administradorDAO.Logar(administrador);
-            } else if (tipo_user.equals("professor")) {
-                Professor professor = new Professor(cpf_user, senha_user);
-                ProfessorDAO professorDAO = new ProfessorDAO();
-                usuarioObtido = professorDAO.Logar(professor);
-            } else if (tipo_user.equals("aluno")) {
-                Aluno aluno = new Aluno(cpf_user, senha_user);
-                AlunoDAO alunoDAO = new AlunoDAO();
-                usuarioObtido = alunoDAO.Logar(aluno);
-            }
-
-            if (usuarioObtido != null) {
-                // Salvar o usuário na sessão
+           
+            Object usuario = autenticarUsuario(cpf, senha, tipoUsuario);
+            if (usuario != null) {
+                
                 HttpSession session = request.getSession();
-                session.setAttribute(tipo_user, usuarioObtido);
+                session.setAttribute(tipoUsuario, usuario);
+                System.out.println(tipoUsuario + " autenticado com sucesso.");
 
-                switch (tipo_user) {
-                    case "administrador":
-                        rd = request.getRequestDispatcher("/admin/dashboard");
-                        break;
-                    case "professor":
-                        rd = request.getRequestDispatcher("/professor/Acesso");
-                        break;
-                    case "aluno":
-                        rd = request.getRequestDispatcher("/aluno/Acesso");
-                        break;
-                    default:
-                        rd = request.getRequestDispatcher("/views/autenticacao/formLogin.jsp");
-                        request.setAttribute("msgError", "Tipo de usuário inválido");
-                        break;
-                }
-                rd.forward(request, response);
+                redirecionarParaDashboard(request, response, tipoUsuario);
             } else {
-                request.setAttribute("msgError", "Usuário e/ou senha incorreto");
-                rd = request.getRequestDispatcher("/views/autenticacao/formLogin.jsp");
-                rd.forward(request, response);
+                redirecionarComErro(request, response, "Usuário ou senha incorretos.");
             }
         } catch (Exception ex) {
-            System.out.println("Erro na autenticação: " + ex.getMessage());
-            request.setAttribute("msgError", "Erro na autenticação. Tente novamente.");
-            rd = request.getRequestDispatcher("/views/autenticacao/formLogin.jsp");
-            rd.forward(request, response);
+            System.out.println("Erro ao autenticar usuário: " + ex.getMessage());
+            redirecionarComErro(request, response, "Erro interno. Tente novamente mais tarde.");
         }
+    }
+
+    private Object autenticarUsuario(String cpf, String senha, String tipoUsuario) throws Exception {
+        switch (tipoUsuario.toLowerCase()) {
+            case "administrador":
+                return new AdministradorDAO().Logar(new Administrador(cpf, senha));
+            case "professor":
+                return new ProfessorDAO().Logar(new Professor(cpf, senha));
+            case "aluno":
+                return new AlunoDAO().Logar(new Aluno(cpf, senha));
+            default:
+                throw new IllegalArgumentException("Tipo de usuário inválido.");
+        }
+    }
+
+    private void redirecionarParaDashboard(HttpServletRequest request, HttpServletResponse response, String tipoUsuario)
+            throws ServletException, IOException {
+        String destino;
+        switch (tipoUsuario.toLowerCase()) {
+            case "administrador":
+                destino = "/admin/dashboard";
+                break;
+            case "professor":
+                destino = "/professor/Acesso";
+                break;
+            case "aluno":
+                destino = "/Aluno/Acesso";
+                break;
+            default:
+                throw new IllegalArgumentException("Tipo de usuário inválido.");
+        }
+        RequestDispatcher rd = request.getRequestDispatcher(destino);
+        rd.forward(request, response);
+    }
+
+    private void redirecionarComErro(HttpServletRequest request, HttpServletResponse response, String mensagemErro)
+            throws ServletException, IOException {
+        System.out.println("Erro: " + mensagemErro);
+        request.setAttribute("msgError", mensagemErro);
+        RequestDispatcher rd = request.getRequestDispatcher("/views/autenticacao/formLogin.jsp");
+        rd.forward(request, response);
     }
 }

@@ -36,7 +36,7 @@ public class TurmaController extends HttpServlet {
                 // Listar todas as turmas
                 TurmaDAO turmaDAO = new TurmaDAO();
                 System.out.println("Listando todas as turmas...");
-                request.setAttribute("listaTurmas", turmaDAO.getAll());
+                request.setAttribute("listaTurmas", turmaDAO.listaDeTurmas());
                 rd = request.getRequestDispatcher("/views/admin/Turmas/listaTurmas.jsp");
                 rd.forward(request, response);
                 break;

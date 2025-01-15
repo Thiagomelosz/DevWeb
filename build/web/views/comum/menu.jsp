@@ -7,15 +7,15 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <%
+                    // Recupera a sessão
                     HttpSession sessao = request.getSession(false);
+                    Administrador AdministradorLogado = (Administrador) sessao.getAttribute("administrador");
+                    Professor ProfessorLogado = (Professor) sessao.getAttribute("professor");
+                    Aluno AlunoLogado = (Aluno) sessao.getAttribute("aluno");
+
+                    String currentURI = request.getRequestURI();
+
                     if (sessao != null) {
-                        // Verifica se há um administrador, professor ou aluno logado
-                        Administrador AdministradorLogado = (Administrador) session.getAttribute("administrador");
-                        Professor ProfessorLogado = (Professor) session.getAttribute("professor");
-                        Aluno AlunoLogado = (Aluno) session.getAttribute("aluno");
-
-                        String currentURI = request.getRequestURI();
-
                         if (AdministradorLogado != null) { %>
                             <!-- Menu para Administrador -->
                             <a class="nav-link <%= currentURI.contains("/admin/dashboard") ? "active" : "" %>" href="/aplicacaoMVC/admin/dashboard">Dashboard</a>
@@ -24,8 +24,7 @@
                             <a class="nav-link <%= currentURI.contains("/admin/AlunoController") ? "active" : "" %>" href="/aplicacaoMVC/admin/AlunoController?acao=Listar">Alunos</a>
                             <a class="nav-link <%= currentURI.contains("/admin/ProfessorController") ? "active" : "" %>" href="/aplicacaoMVC/admin/ProfessorController?acao=Listar">Professores</a>
                             <a class="nav-link <%= currentURI.contains("/admin/AdminController") ? "active" : "" %>" href="/aplicacaoMVC/admin/AdminController?acao=Listar">Admin</a>
-                            <a class="nav-link <%= currentURI.contains("/admin/RelatorioController") ? "active" : "" %>" href="/aplicacaoMVC//admin/RelatorioController?acao=Listar">Relatorio</a>
-                            
+                            <a class="nav-link <%= currentURI.contains("/admin/RelatorioController") ? "active" : "" %>" href="/aplicacaoMVC/admin/RelatorioController?acao=Listar">Relatorio</a>
                             <a class="nav-link <%= currentURI.contains("/admin/logOut") ? "active" : "" %>" href="/aplicacaoMVC/admin/logOut">Logout</a>
                 <%      } else if (ProfessorLogado != null) { %>
                             <!-- Menu para Professor -->
@@ -34,9 +33,9 @@
                             <a class="nav-link <%= currentURI.contains("/professor/logOut") ? "active" : "" %>" href="/aplicacaoMVC/professor/logOut">Logout</a>
                 <%      } else if (AlunoLogado != null) { %>
                             <!-- Menu para Aluno -->
-                            <a class="nav-link <%= currentURI.contains("/aluno/dashboard") ? "active" : "" %>" href="/aplicacaoMVC/aluno/dashboard">Dashboard</a>
-                            <a class="nav-link <%= currentURI.contains("/aluno/MinhasAulas") ? "active" : "" %>" href="/aplicacaoMVC/aluno/MinhasAulas">Minhas Aulas</a>
-                            <a class="nav-link <%= currentURI.contains("/aluno/logOut") ? "active" : "" %>" href="/aplicacaoMVC/aluno/logOut">Logout</a>
+                            <a class="nav-link <%= currentURI.contains("/aluno/TurmasController") ? "active" : "" %>" href="/aplicacaoMVC/aluno/TurmasController?acao=Listar">Minhas Turmas</a>
+                            <a class="nav-link <%= currentURI.contains("/aluno/MinhasAulas") ? "active" : "" %>" href="/aplicacaoMVC/aluno/NotasController?acao=Listar">Minhas Notas</a>
+                            <a class="nav-link <%= currentURI.contains("/admin/logOut") ? "active" : "" %>" href="/aplicacaoMVC/admin/logOut">Logout</a>
                 <%      } else { %>
                             <!-- Menu para visitante (não logado) -->
                             <a class="nav-link <%= currentURI.contains("/home") ? "active" : "" %>" href="/aplicacaoMVC/home">Home</a>

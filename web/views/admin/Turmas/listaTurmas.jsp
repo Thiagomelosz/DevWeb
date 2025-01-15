@@ -27,6 +27,7 @@
                             <tr>
                                 <th scope="col">Codigo da Turma</th>
                                 <th scope="col">Nome da Matéria</th>
+                                <th scope="col">Professor</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -40,6 +41,7 @@
                                         <tr>
                                             <td><%= turma.getCodigoTurma() %></td>
                                             <td><%= turma.getNomeDisciplina() %></td>
+                                            <td><%= turma.getNomeProfessor() %></td>
                                             <td>
                                                 <a href="/aplicacaoMVC/admin/TurmaController?acao=Alterar&id=<%= turma.getId() %>" class="btn btn-warning">Alterar</a>
                                                 <a href="/aplicacaoMVC/admin/TurmaController?acao=Excluir&id=<%= turma.getId() %>" class="btn btn-danger">Excluir</a>

@@ -8,7 +8,8 @@ public class Turma {
     private int alunoId;
     private String codigoTurma;
     private double nota;
-    private String nomeDisciplina;  
+    private String nomeDisciplina;
+    private String nomeProfessor;
 
     public Turma(int id, int professorId, int disciplinaId, int alunoId, String codigoTurma, double nota) {
         this.id = id;
@@ -76,6 +77,13 @@ public class Turma {
 
     public void setNomeDisciplina(String nomeDisciplina) {
         this.nomeDisciplina = nomeDisciplina;
+    }
+    public String getNomeProfessor() {
+        return nomeProfessor;
+    }
+
+    public void setNomeProfessor(String nomeProfessor) {
+        this.nomeProfessor = nomeProfessor;
     }
 }
     

@@ -3,12 +3,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/meus%20documentos/CURSOS/DW%20novo/fontesMVC/aplicacaoMVC/src/java/controller/MostrarComentarios.java</file>
-            <file>file:/D:/meus%20documentos/CURSOS/DW%20novo/fontesMVC/aplicacaoMVC/web/index.jsp</file>
-            <file>file:/D:/meus%20documentos/CURSOS/DW%20novo/fontesMVC/aplicacaoMVC/web/views/comum/menu.jsp</file>
-            <file>file:/D:/meus%20documentos/CURSOS/DW%20novo/fontesMVC/aplicacaoMVC/src/java/filtro/filtroRestrito.java</file>
-            <file>file:/D:/meus%20documentos/CURSOS/DW%20novo/fontesMVC/aplicacaoMVC/web/views/admin/categoria/listaCategorias.jsp</file>
-            <file>file:/D:/meus%20documentos/CURSOS/DW%20novo/fontesMVC/aplicacaoMVC/src/java/controller/AutenticaController.java</file>
+            <file>file:/C:/Users/usuario/Desktop/aplicacaoMVC/web/views/comum/menu.jsp</file>
+            <file>file:/C:/Users/usuario/Desktop/aplicacaoMVC/src/java/model/AdministradorDAO.java</file>
+            <file>file:/C:/Users/usuario/Desktop/aplicacaoMVC/src/java/entidade/Turma.java</file>
+            <file>file:/C:/Users/usuario/Desktop/aplicacaoMVC/src/java/controller/aluno/AlunoMenuController.java</file>
+            <file>file:/C:/Users/usuario/Desktop/aplicacaoMVC/src/java/model/Conexao.java</file>
+            <file>file:/C:/Users/usuario/Desktop/aplicacaoMVC/src/java/controller/aluno/TurmasController.java</file>
+            <file>file:/C:/Users/usuario/Desktop/aplicacaoMVC/src/java/model/ProfessorDAO.java</file>
+            <file>file:/C:/Users/usuario/Desktop/aplicacaoMVC/web/views/Aluno/Acesso/AreaAluno.jsp</file>
+            <file>file:/C:/Users/usuario/Desktop/aplicacaoMVC/web/views/comum/showMessage.jsp</file>
+            <file>file:/C:/Users/usuario/Desktop/aplicacaoMVC/src/java/model/AlunoDAO.java</file>
+            <file>file:/C:/Users/usuario/Desktop/aplicacaoMVC/web/views/public/home.jsp</file>
+            <file>file:/C:/Users/usuario/Desktop/aplicacaoMVC/src/java/controller/admin/AdminController.java</file>
+            <file>file:/C:/Users/usuario/Desktop/aplicacaoMVC/web/views/Aluno/Turmas/listaTurmas.jsp</file>
+            <file>file:/C:/Users/usuario/Desktop/aplicacaoMVC/src/java/controller/AutenticaController.java</file>
+            <file>file:/C:/Users/usuario/Desktop/aplicacaoMVC/src/java/controller/admin/LogoutController.java</file>
+            <file>file:/C:/Users/usuario/Desktop/aplicacaoMVC/web/views/admin/RelatorioGeral/listaRelatorio.jsp</file>
         </group>
     </open-files>
 </project-private>

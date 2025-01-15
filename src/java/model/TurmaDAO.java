@@ -43,36 +43,44 @@ public class TurmaDAO {
 
 
  
-public ArrayList<Turma> getAll() {
-    ArrayList<Turma> turmas = new ArrayList<>();
+public ArrayList<Turma> listaDeTurmas() {
+    ArrayList<Turma> minhasTurmas = new ArrayList<>();
     Conexao conexao = new Conexao();
     try {
-        // Consulta SQL para pegar apenas 'codigo_turma' e 'nome' (da disciplina)
-        String sqlQuery = "SELECT t.id, t.codigo_turma, d.nome AS nome_disciplina "
-                        + "FROM turmas t "
-                        + "JOIN disciplina d ON t.disciplina_id = d.id;";
+        // Consulta SQL para pegar as informações necessárias
+        String selectSQL = "SELECT t.id, t.codigo_turma, d.nome AS nome_disciplina, p.nome AS professor "
+                         + "FROM turmas t "
+                         + "JOIN disciplina d ON t.disciplina_id = d.id "
+                         + "JOIN professores p ON p.id = t.professor_id "
+                         + "ORDER BY t.codigo_turma";
 
-        Statement stmt = conexao.getConexao().createStatement();
-        ResultSet rs = stmt.executeQuery(sqlQuery);
+        PreparedStatement preparedStatement = conexao.getConexao().prepareStatement(selectSQL);
+        ResultSet resultado = preparedStatement.executeQuery();
 
-        while (rs.next()) {
-            // Criação do objeto Turma
-            Turma turma = new Turma();
-            
-            // Preenchendo com os dados da consulta (apenas 'codigo_turma' e 'nome_disciplina')
-            turma.setCodigoTurma(rs.getString("codigo_turma"));
-            turma.setNomeDisciplina(rs.getString("nome_disciplina"));
-            turma.setId(rs.getInt("id"));
-            // Adiciona a turma na lista
-            turmas.add(turma);
+        if (resultado != null) {
+            while (resultado.next()) {
+                // Criação do objeto Turma com os dados do banco
+                Turma turma = new Turma();
+                turma.setId(resultado.getInt("id"));
+                turma.setCodigoTurma(resultado.getString("codigo_turma"));
+                turma.setNomeDisciplina(resultado.getString("nome_disciplina"));
+                turma.setNomeProfessor(resultado.getString("professor"));
+
+                // Adiciona a turma à lista
+                minhasTurmas.add(turma);
+            }
         }
     } catch (SQLException e) {
-        System.err.println("Erro ao listar turmas: " + e.getMessage());
+        throw new RuntimeException("Erro ao listar turmas: " + e.getMessage());
     } finally {
         conexao.closeConexao();
     }
-    return turmas;
+
+    // Log para verificar o tamanho da lista
+    System.out.println("Tamanho da lista de turmas: " + minhasTurmas.size());
+    return minhasTurmas;
 }
+
 
 
     public Turma get(int id) {
@@ -147,4 +155,21 @@ public ArrayList<Turma> getAll() {
             conexao.closeConexao();
         }
     }
+        public boolean inscreverAluno(int alunoId, int turmaId) {
+            Conexao conexao = new Conexao();
+            String sql = "INSERT INTO turma_aluno (turma_id, aluno_id) VALUES (?, ?)";
+            try {
+                PreparedStatement stmt = conexao.getConexao().prepareStatement(sql);
+                stmt.setInt(1, turmaId);
+                stmt.setInt(2, alunoId);
+                int linhasAfetadas = stmt.executeUpdate();
+                return linhasAfetadas > 0; 
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            } finally {
+                conexao.closeConexao();
+            }
+        }
 }
+

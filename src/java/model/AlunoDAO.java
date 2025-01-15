@@ -163,5 +163,30 @@ public class AlunoDAO {
             conexao.closeConexao();
         }
     }
+    public void inserirAlunoNaTurma(int alunoId, int professorId, int disciplinaId, String codigoTurma) throws Exception {
+    Conexao conexao = new Conexao();
+    try {
+        // Prepara a query de inserção
+        PreparedStatement sql = conexao.getConexao().prepareStatement(
+            "INSERT INTO turmas (professor_id, disciplina_id, aluno_id, codigo_turma, nota) VALUES (?, ?, ?, ?, 0)"
+        );
+        
+        // Define os parâmetros
+        sql.setInt(1, professorId);
+        sql.setInt(2, disciplinaId);
+        sql.setInt(3, alunoId);
+        sql.setString(4, codigoTurma);
+        
+        // Executa a inserção
+        sql.executeUpdate();
+        
+    } catch (SQLException e) {
+        e.printStackTrace(); // Imprime o erro no console
+        throw new RuntimeException("Erro ao inserir o aluno na turma.", e);
+    } finally {
+        conexao.closeConexao(); // Fecha a conexão
+    }
+}
+
 
 }

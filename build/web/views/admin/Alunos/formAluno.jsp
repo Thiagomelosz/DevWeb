@@ -64,30 +64,30 @@
                     
                     <div class="mb-3">
                         <label for="Nome" class="form-label">Nome</label>
-                        <input type="text" name="nome" <%= acao.equals("Excluir") ? "readonly" : ""%> value="<%=aluno.getNome()%>" class="form-control">
+                        <input type="text" name="nome" <%= acao.equals("Excluir") ? "readonly" : ""%> value="<%=aluno.getNome()%>" class="form-control" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="Email" class="form-label">Email</label>
-                        <input type="text" name="email" <%= acao.equals("Excluir") ? "readonly" : ""%> value="<%=aluno.getEmail()%>" class="form-control">
+                        <input type="email" name="email" <%= acao.equals("Excluir") ? "readonly" : ""%> value="<%=aluno.getEmail()%>" class="form-control" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="Celular" class="form-label">Celular</label>
-                        <input type="text" name="celular" <%= acao.equals("Excluir") ? "readonly" : ""%> value="<%=aluno.getCelular()%>" class="form-control">
+                        <input type="tel" name="celular" <%= acao.equals("Excluir") ? "readonly" : ""%> value="<%=aluno.getCelular()%>" class="form-control" required>
                     </div>
                     
                     <div class="mb-3">
                         <label for="Senha" class="form-label">Senha</label>
-                        <input type="password" name="senha" <%= acao.equals("Excluir") ? "readonly" : ""%> value="<%= aluno.getSenha() %>" class="form-control">
+                        <input type="password" name="senha" <%= acao.equals("Excluir") ? "readonly" : ""%> value="<%= aluno.getSenha() %>" class="form-control" required>
                     </div>
                     
                     <div class="mb-3">
                         <label for="CPF" class="form-label">CPF</label>
-                        <input type="text" name="cpf" <%= acao.equals("Excluir") ? "readonly" : ""%> value="<%=aluno.getCpf()%>" class="form-control">
+                        <input type="text" name="cpf" <%= acao.equals("Excluir") ? "readonly" : ""%> value="<%=aluno.getCpf()%>" class="form-control"required>
                     </div>
                     
-                    <div class="mb-3">
+                    <div class="mb-3"> 
                         <label for="Endereco" class="form-label">Endereço</label>
                         <input type="text" name="endereco" <%= acao.equals("Excluir") ? "readonly" : ""%> value="<%= aluno.getEndereco() %>" class="form-control">
                     </div>
