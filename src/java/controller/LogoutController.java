@@ -1,4 +1,4 @@
-package controller.admin;
+package controller;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Leonardo
  */
-@WebServlet(name = "logOut", urlPatterns = {"/admin/logOut"})
+@WebServlet(name = "logOut", urlPatterns = {"/logOut"})
 public class LogoutController extends HttpServlet {
 
     @Override

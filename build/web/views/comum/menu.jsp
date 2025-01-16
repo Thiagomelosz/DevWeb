@@ -25,17 +25,17 @@
                             <a class="nav-link <%= currentURI.contains("/admin/ProfessorController") ? "active" : "" %>" href="/aplicacaoMVC/admin/ProfessorController?acao=Listar">Professores</a>
                             <a class="nav-link <%= currentURI.contains("/admin/AdminController") ? "active" : "" %>" href="/aplicacaoMVC/admin/AdminController?acao=Listar">Admin</a>
                             <a class="nav-link <%= currentURI.contains("/admin/RelatorioController") ? "active" : "" %>" href="/aplicacaoMVC/admin/RelatorioController?acao=Listar">Relatorio</a>
-                            <a class="nav-link <%= currentURI.contains("/admin/logOut") ? "active" : "" %>" href="/aplicacaoMVC/admin/logOut">Logout</a>
+                            <a class="nav-link <%= currentURI.contains("/logOut") ? "active" : "" %>" href="/aplicacaoMVC/logOut">Logout</a>
                 <%      } else if (ProfessorLogado != null) { %>
                             <!-- Menu para Professor -->
-                            <a class="nav-link <%= currentURI.contains("/professor/dashboard") ? "active" : "" %>" href="/aplicacaoMVC/professor/dashboard">Dashboard</a>
-                            <a class="nav-link <%= currentURI.contains("/professor/Cursos") ? "active" : "" %>" href="/aplicacaoMVC/professor/Cursos">Meus Cursos</a>
-                            <a class="nav-link <%= currentURI.contains("/professor/logOut") ? "active" : "" %>" href="/aplicacaoMVC/professor/logOut">Logout</a>
+                            <a class="nav-link <%= currentURI.contains("/professor/dashboard") ? "active" : "" %>" href="/aplicacaoMVC/professor/dashboard">Notas</a>
+                            <a class="nav-link <%= currentURI.contains("/professor/Cursos") ? "active" : "" %>" href="/aplicacaoMVC/professor/Cursos">Minhas disciplinas</a>
+                            <a class="nav-link <%= currentURI.contains("/logOut") ? "active" : "" %>" href="/aplicacaoMVC/logOut">Logout</a>
                 <%      } else if (AlunoLogado != null) { %>
                             <!-- Menu para Aluno -->
                             <a class="nav-link <%= currentURI.contains("/aluno/TurmasController") ? "active" : "" %>" href="/aplicacaoMVC/aluno/TurmasController?acao=Listar">Inscrição Turmas</a>
                             <a class="nav-link <%= currentURI.contains("/aluno/MinhasAulas") ? "active" : "" %>" href="/aplicacaoMVC/aluno/NotasController?acao=Listar">Minhas Notas</a>
-                            <a class="nav-link <%= currentURI.contains("/admin/logOut") ? "active" : "" %>" href="/aplicacaoMVC/admin/logOut">Logout</a>
+                            <a class="nav-link <%= currentURI.contains("/logOut") ? "active" : "" %>" href="/aplicacaoMVC/logOut">Logout</a>
                 <%      } else { %>
                             <!-- Menu para visitante (não logado) -->
                             <a class="nav-link <%= currentURI.contains("/home") ? "active" : "" %>" href="/aplicacaoMVC/home">Home</a>

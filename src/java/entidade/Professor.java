@@ -33,7 +33,7 @@ public class Professor {
         this.nome = "";
         this.email = "";
         this.cpf = "";
-        this.senha = "";;
+        this.senha = "";
     }
 
     public int getId() {

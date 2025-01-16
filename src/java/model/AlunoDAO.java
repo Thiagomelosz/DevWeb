@@ -152,9 +152,9 @@ public class AlunoDAO {
             AlunoObtido.setBairro(resultado.getString("BAIRRO"));
             AlunoObtido.setCep(resultado.getString("CEP"));
             return AlunoObtido;
-        } else {
-            return null;
         }
+    return null;
+    
     } catch (SQLException e) {
         System.out.println(e.getMessage());
         throw new RuntimeException("Query de select (get) incorreta");
