@@ -137,7 +137,7 @@ public class ProfessorDAO {
             sql.setString(2, Professor.getSenha());
             ResultSet resultado = sql.executeQuery();
             Professor ProfessorObtido = new Professor();
-            if (resultado.next() != false) {
+            if (resultado.next()) {
                 //while (resultado.next()) {
                     ProfessorObtido.setId(Integer.parseInt(resultado.getString("ID")));
                     ProfessorObtido.setNome(resultado.getString("NOME"));
