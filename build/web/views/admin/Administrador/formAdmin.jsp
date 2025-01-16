@@ -76,7 +76,7 @@
                         <input type="text" name="cpf" <%= acao.equals("Excluir") ? "readonly" : ""%> value="<%=administrador.getCpf()%>" class="form-control">
                     </div>
                     
-                    <input type="hidden" name="aprovado" value="0">
+                    <input type="hidden" name="aprovado" value="S">
                                       
                     <div class="mb-3">
                         <label for="Endereco" class="form-label">Endereço</label>

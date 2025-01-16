@@ -129,7 +129,7 @@ public class AdminController extends HttpServlet {
         String nome = request.getParameter("nome");
         String cpf = request.getParameter("cpf");
         String senha = request.getParameter("senha");
-        int aprovado = Integer.parseInt(request.getParameter("aprovado"));
+        String aprovado = request.getParameter("aprovado");
         String endereco = request.getParameter("endereco");
 
         System.out.println("Dados recebidos: ID=" + id + ", Nome=" + nome + ", CPF=" + cpf + ", Aprovado=" + aprovado);

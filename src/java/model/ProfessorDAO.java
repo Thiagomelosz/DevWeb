@@ -26,7 +26,7 @@ public class ProfessorDAO {
     public void Inserir(Professor Professor) throws Exception {
         Conexao conexao = new Conexao();
         try {
-            PreparedStatement sql = conexao.getConexao().prepareStatement("INSERT INTO Professores (nome, email, cpf, senha)"
+            PreparedStatement sql = conexao.getConexao().prepareStatement("INSERT INTO professores (nome, email, cpf, senha)"
                     + " VALUES (?,?,?,?)");
             sql.setString(1, Professor.getNome());
             sql.setString(2, Professor.getEmail());
@@ -45,7 +45,7 @@ public class ProfessorDAO {
         Conexao conexao = new Conexao();
         try {
             Professor Professor = new Professor();
-            PreparedStatement sql = conexao.getConexao().prepareStatement("SELECT * FROM Professores WHERE ID = ? ");
+            PreparedStatement sql = conexao.getConexao().prepareStatement("SELECT * FROM professores WHERE ID = ? ");
             sql.setInt(1, id);
             ResultSet resultado = sql.executeQuery();
             if (resultado != null) {
@@ -71,7 +71,7 @@ public class ProfessorDAO {
         Conexao conexao = new Conexao();
         try {
             // id, nome, email, cpf, senha
-            PreparedStatement sql = conexao.getConexao().prepareStatement("UPDATE Professores SET nome = ?, email = ?, cpf = ?, senha = ? WHERE ID = ?");
+            PreparedStatement sql = conexao.getConexao().prepareStatement("UPDATE professores SET nome = ?, email = ?, cpf = ?, senha = ? WHERE ID = ?");
             sql.setString(1, Professor.getNome());
             sql.setString(2, Professor.getEmail());
             sql.setString(3, Professor.getCpf());
@@ -90,7 +90,7 @@ public class ProfessorDAO {
     public void Excluir(Professor Professor) throws Exception {
         Conexao conexao = new Conexao();
         try {
-            PreparedStatement sql = conexao.getConexao().prepareStatement("DELETE FROM Professores WHERE ID = ? ");
+            PreparedStatement sql = conexao.getConexao().prepareStatement("DELETE FROM professores WHERE ID = ? ");
             sql.setInt(1, Professor.getId());
             System.out.println("SQL: " + sql.toString());
             sql.executeUpdate();
@@ -107,7 +107,7 @@ public class ProfessorDAO {
         ArrayList<Professor> meusProfessores = new ArrayList();
         Conexao conexao = new Conexao();
         try {
-            String selectSQL = "SELECT * FROM Professores order by nome";
+            String selectSQL = "SELECT * FROM professores order by nome";
             PreparedStatement preparedStatement;
             preparedStatement = conexao.getConexao().prepareStatement(selectSQL);
             ResultSet resultado = preparedStatement.executeQuery();
@@ -132,7 +132,7 @@ public class ProfessorDAO {
     public Professor Logar(Professor Professor) throws Exception {
         Conexao conexao = new Conexao();
         try {
-            PreparedStatement sql = conexao.getConexao().prepareStatement("SELECT * FROM Professores WHERE cpf=? and senha =? LIMIT 1");
+            PreparedStatement sql = conexao.getConexao().prepareStatement("SELECT * FROM professores WHERE cpf = ? and senha = ? LIMIT 1");
             sql.setString(1, Professor.getCpf());
             sql.setString(2, Professor.getSenha());
             ResultSet resultado = sql.executeQuery();

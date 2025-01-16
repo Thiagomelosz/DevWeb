@@ -11,7 +11,7 @@ public class AlunoDAO {
     public void Inserir(Aluno Aluno) throws Exception {
         Conexao conexao = new Conexao();
         try {
-            PreparedStatement sql = conexao.getConexao().prepareStatement("INSERT INTO Alunos (nome, email, celular, cpf, senha, endereco, cidade, bairro, cep)"
+            PreparedStatement sql = conexao.getConexao().prepareStatement("INSERT INTO alunos (nome, email, celular, cpf, senha, endereco, cidade, bairro, cep)"
         + " VALUES (?,?,?,?,?,?,?,?,?)");
             sql.setString(1, Aluno.getNome());
             sql.setString(2, Aluno.getEmail());
@@ -35,7 +35,7 @@ public class AlunoDAO {
     public Aluno getAluno(int id) throws Exception {
     Conexao conexao = new Conexao();
     try {
-        PreparedStatement sql = conexao.getConexao().prepareStatement("SELECT * FROM Alunos WHERE ID = ?");
+        PreparedStatement sql = conexao.getConexao().prepareStatement("SELECT * FROM alunos WHERE ID = ?");
         sql.setInt(1, id);
         ResultSet resultado = sql.executeQuery();
 
