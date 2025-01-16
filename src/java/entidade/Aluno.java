@@ -30,6 +30,14 @@ public class Aluno {
         this.senha = senha;
     }
     
+    // construtor criado para o professor conseguir ver as notas do aluno
+    public Aluno(int id, String nome, String cpf) {
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+        
+    }
+    
     public Aluno(int id, String nome, String email, String celular, String cpf, String senha, String endereco, String cidade, String bairro, String cep) {
     this.id = id;
     this.nome = nome;

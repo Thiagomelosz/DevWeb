@@ -28,7 +28,7 @@
                             <a class="nav-link <%= currentURI.contains("/logOut") ? "active" : "" %>" href="/aplicacaoMVC/logOut">Logout</a>
                 <%      } else if (ProfessorLogado != null) { %>
                             <!-- Menu para Professor -->
-                            <a class="nav-link <%= currentURI.contains("/professor/dashboard") ? "active" : "" %>" href="/aplicacaoMVC/professor/dashboard">Notas</a>
+                            <a class="nav-link <%= currentURI.contains("/professor/notas") ? "active" : "" %>" href="/aplicacaoMVC/professor/notas">Notas</a>
                             <a class="nav-link <%= currentURI.contains("/professor/Cursos") ? "active" : "" %>" href="/aplicacaoMVC/professor/Cursos">Minhas disciplinas</a>
                             <a class="nav-link <%= currentURI.contains("/logOut") ? "active" : "" %>" href="/aplicacaoMVC/logOut">Logout</a>
                 <%      } else if (AlunoLogado != null) { %>

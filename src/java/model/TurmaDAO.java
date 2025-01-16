@@ -5,6 +5,10 @@ import entidade.Disciplina;
 import entidade.Turma;
 import java.sql.*;
 import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import org.apache.tomcat.dbcp.dbcp2.ConnectionFactory;
 
 public class TurmaDAO {
 
@@ -242,6 +246,59 @@ public ArrayList<Turma> listaDeTurmas() {
         }
 
         return turmas;
+    }
+         
+    public static ArrayList<Turma> obterAlunosPorProfessor(int idProfessor) {
+    ArrayList<Turma> lista = new ArrayList<>();
+    Conexao conexao = new Conexao();
+    String sqlQuery = "SELECT " +
+                 "  t.nota, " +
+                 "  a.nome AS nome_aluno, " +
+                 "  d.nome AS nome_disciplina, " +
+                 "  d.id AS id_disciplina, " +
+                 "  t.id AS id_turma, " +
+                 "  t.id_aluno, " +  // ID do aluno (já existente na classe)
+                 "  t.codigo_turma, a.cpf" +
+                 "FROM TURMA t " +
+                 "JOIN ALUNO a ON t.id_aluno = a.id " +
+                 "JOIN DISCIPLINA d ON t.id_disciplina = d.id " +
+                 "WHERE t.id_professor = ? " +
+                 "ORDER BY d.id";
+    
+     try (PreparedStatement sql = conexao.getConexao().prepareStatement(sqlQuery);
+        ) {
+
+        sql.setInt(1, idProfessor);
+
+        try (ResultSet rs = sql.executeQuery()) {
+            while (rs.next()) {
+                // Cria o objeto Turma com dados da tabela
+                Turma turma = new Turma(
+                    rs.getInt("id_turma"), 
+                    idProfessor, // Professor ID já está na sessão ou contexto
+                    rs.getInt("id_disciplina"), 
+                    rs.getInt("id_aluno"),
+                    rs.getString("codigo_turma"), // Se você tiver o código da turma
+                    rs.getDouble("nota")
+                );
+                
+                // Preenche o nome da disciplina e do aluno na turma
+                turma.setNomeDisciplina(rs.getString("nome_disciplina"));
+                // Não podemos mudar a classe, mas você pode criar um método que retorna os dados adicionais para manipulação
+                // No caso do nome do aluno, você pode usar outro método ou campo auxiliar para armazenar.
+                // Exemplo de preencher a lista de alunos se necessário (já tem alunoId)
+                Aluno aluno = new Aluno(rs.getInt("id_aluno"), rs.getString("nome_aluno"), rs.getString("cpf"));
+                turma.getAlunos().add(aluno);  // Preenchendo a lista de alunos se necessário
+
+                // Adiciona a turma à lista
+                lista.add(turma);
+            }
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return lista;
     }
 }
 
