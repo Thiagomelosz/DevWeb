@@ -27,7 +27,7 @@
                 %>
                 
                 <!-- Exibir os dados do aluno logado -->
-                <h3>Usuário logado com sucesso</h3>
+                <h3>Aluno logado com sucesso</h3>
                 <h2>Nome: <%= alunoLogado.getNome() %></h2>
             </div>
         </div>

@@ -132,37 +132,37 @@ public class AlunoDAO {
         return meusAlunos;
     }
 
-    public Aluno Logar(Aluno Aluno) throws Exception {
-        Conexao conexao = new Conexao();
-        try {
-            PreparedStatement sql = conexao.getConexao().prepareStatement("SELECT * FROM alunos WHERE cpf=? and senha =? LIMIT 1");
-            sql.setString(1, Aluno.getCpf());
-            sql.setString(2, Aluno.getSenha());
-            ResultSet resultado = sql.executeQuery();
-            Aluno AlunoObtido = new Aluno();
-            if (resultado != null) {
-                while (resultado.next()) {
-                    AlunoObtido.setId(Integer.parseInt(resultado.getString("ID")));
-                    AlunoObtido.setNome(resultado.getString("NOME"));
-                    AlunoObtido.setEmail(resultado.getString("EMAIL"));
-                    AlunoObtido.setCelular(resultado.getString("CELULAR"));
-                    AlunoObtido.setCpf(resultado.getString("CPF"));
-                    AlunoObtido.setSenha(resultado.getString("SENHA"));
-                    AlunoObtido.setEndereco(resultado.getString("ENDERECO"));
-                    AlunoObtido.setCidade(resultado.getString("CIDADE"));
-                    AlunoObtido.setBairro(resultado.getString("BAIRRO"));
-                    AlunoObtido.setCep(resultado.getString("CEP"));
-                }
-            }
+  public Aluno Logar(Aluno Aluno) throws Exception {
+    Conexao conexao = new Conexao();
+    try {
+        PreparedStatement sql = conexao.getConexao().prepareStatement("SELECT * FROM alunos WHERE cpf=? and senha =? LIMIT 1");
+        sql.setString(1, Aluno.getCpf());
+        sql.setString(2, Aluno.getSenha());
+        ResultSet resultado = sql.executeQuery();
+        Aluno AlunoObtido = new Aluno();
+        if (resultado.next()) {
+            AlunoObtido.setId(Integer.parseInt(resultado.getString("ID")));
+            AlunoObtido.setNome(resultado.getString("NOME"));
+            AlunoObtido.setEmail(resultado.getString("EMAIL"));
+            AlunoObtido.setCelular(resultado.getString("CELULAR"));
+            AlunoObtido.setCpf(resultado.getString("CPF"));
+            AlunoObtido.setSenha(resultado.getString("SENHA"));
+            AlunoObtido.setEndereco(resultado.getString("ENDERECO"));
+            AlunoObtido.setCidade(resultado.getString("CIDADE"));
+            AlunoObtido.setBairro(resultado.getString("BAIRRO"));
+            AlunoObtido.setCep(resultado.getString("CEP"));
             return AlunoObtido;
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            throw new RuntimeException("Query de select (get) incorreta");
-        } finally {
-            conexao.closeConexao();
+        } else {
+            return null;
         }
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+        throw new RuntimeException("Query de select (get) incorreta");
+    } finally {
+        conexao.closeConexao();
     }
+}
+
 public boolean inserirAlunoNaTurma(int alunoId, int professorId, int disciplinaId, String codigoTurma) {
     Conexao conexao = new Conexao();
     try {

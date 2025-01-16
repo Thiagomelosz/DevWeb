@@ -137,17 +137,17 @@ public class ProfessorDAO {
             sql.setString(2, Professor.getSenha());
             ResultSet resultado = sql.executeQuery();
             Professor ProfessorObtido = new Professor();
-            if (resultado != null) {
-                while (resultado.next()) {
+            if (resultado.next() != false) {
+                //while (resultado.next()) {
                     ProfessorObtido.setId(Integer.parseInt(resultado.getString("ID")));
                     ProfessorObtido.setNome(resultado.getString("NOME"));
                     ProfessorObtido.setEmail(resultado.getString("EMAIL"));
                     ProfessorObtido.setCpf(resultado.getString("CPF"));
-                    ProfessorObtido.setSenha(resultado.getString("SENHA")); 
-                }
-            }
+                    ProfessorObtido.setSenha(resultado.getString("SENHA"));
             return ProfessorObtido;
-
+            }
+        return null;
+            
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException("Query de select (get) incorreta");
