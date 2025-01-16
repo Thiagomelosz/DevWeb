@@ -39,9 +39,9 @@
                                 //verificando se a lista é null
                                 ArrayList<Administrador> ListaDeAdministrador = (ArrayList<Administrador>) request.getAttribute("ListaDeAdministrador");
                                 if (ListaDeAdministrador == null) {
-                                    System.out.println("A lista de Admin é NULA na JSP!");
+                                    out.println("A lista de Admin é NULA na JSP!");
                                 } else {
-                                    System.out.println("Tamanho da lista de Admin na JSP: " + ListaDeAdministrador.size());
+                                    out.println("Tamanho da lista de Admin na JSP: " + ListaDeAdministrador.size());
                                 }
 
                                 if (ListaDeAdministrador != null && !ListaDeAdministrador.isEmpty()) {

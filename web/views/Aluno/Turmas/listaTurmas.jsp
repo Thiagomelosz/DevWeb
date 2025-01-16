@@ -18,18 +18,18 @@
                 <%
                     Aluno alunoLogado = (Aluno) session.getAttribute("aluno");
                     List<Turma> turmas = (List<Turma>) request.getAttribute("turmas"); 
-                    System.out.println("Aluno logado: " + (alunoLogado != null ? alunoLogado.getNome() : "Nenhum aluno encontrado"));
+                    out.println("Aluno logado: " + (alunoLogado != null ? alunoLogado.getNome() : "Nenhum aluno encontrado"));
                     // Verificação de sessão e turmas
                     if (alunoLogado != null) {
-                        System.out.println("Aluno logado: " + alunoLogado.getNome());
+                        out.println("Aluno logado: " + alunoLogado.getNome());
                     } else {
-                        System.out.println("Nenhum aluno logado.");
+                        out.println("Nenhum aluno logado.");
                     }
 
                     if (turmas == null || turmas.isEmpty()) {
-                        System.out.println("Nenhuma turma foi passada para a JSP.");
+                        out.println("Nenhuma turma foi passada para a JSP.");
                     } else {
-                        System.out.println("Turmas recebidas na JSP: " + turmas.size());
+                        out.println("Turmas recebidas na JSP: " + turmas.size());
                     }
                 %>
                 <h3>Usuário logado com sucesso</h3>
@@ -48,7 +48,7 @@
                         <%
                             if (turmas != null && !turmas.isEmpty()) {
                                 for (Turma turma : turmas) {
-                                    System.out.println("Exibindo turma: " + turma.getId());
+                                    out.println("Exibindo turma: " + turma.getId());
                         %>
                         <tr>
                             <td><%= turma.getId() %></td>

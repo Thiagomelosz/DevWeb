@@ -37,9 +37,9 @@
                                 //verificando se a lista é null
                                 ArrayList<Aluno> listaAlunos = (ArrayList<Aluno>) request.getAttribute("listaAluno");
                                 if (listaAlunos == null) {
-                                    System.out.println("A lista de alunos é NULA na JSP!");
+                                    out.println("A lista de alunos é NULA na JSP!");
                                 } else {
-                                    System.out.println("Tamanho da lista de alunos na JSP: " + listaAlunos.size());
+                                    out.println("Tamanho da lista de alunos na JSP: " + listaAlunos.size());
                                 }
 
                                 if (listaAlunos != null && !listaAlunos.isEmpty()) {

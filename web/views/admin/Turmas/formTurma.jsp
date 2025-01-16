@@ -53,14 +53,14 @@
                     }
 
                     // Logs para verificar os valores no JSP
-                    System.out.println("Ação no JSP: " + acao);
-                    System.out.println("Turma no JSP: " + turma);
-                    System.out.println("ID Turma no JSP: " + turma.getId()); // Log para o ID da turma
-                    System.out.println("ID Disciplina no JSP: " + turma.getDisciplinaId());
-                    System.out.println("ID Aluno no JSP: " + turma.getAlunoId());
-                    System.out.println("ID Professor no JSP: " + turma.getProfessorId());
-                    System.out.println("Codigo da Turma no JSP: " + turma.getCodigoTurma());
-                    System.out.println("Nota da Turma no JSP: " + turma.getNota());
+                    out.println("Ação no JSP: " + acao);
+                    out.println("Turma no JSP: " + turma);
+                    out.println("ID Turma no JSP: " + turma.getId()); // Log para o ID da turma
+                    out.println("ID Disciplina no JSP: " + turma.getDisciplinaId());
+                    out.println("ID Aluno no JSP: " + turma.getAlunoId());
+                    out.println("ID Professor no JSP: " + turma.getProfessorId());
+                    out.println("Codigo da Turma no JSP: " + turma.getCodigoTurma());
+                    out.println("Nota da Turma no JSP: " + turma.getNota());
 
                     String msgError = (String) request.getAttribute("msgError");
                     if ((msgError != null) && (!msgError.isEmpty())) {%>
