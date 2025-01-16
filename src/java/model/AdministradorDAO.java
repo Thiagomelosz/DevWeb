@@ -32,7 +32,7 @@ public class AdministradorDAO {
             sql.setString(2, Administrador.getCpf());
             sql.setString(3, Administrador.getSenha());
             sql.setString(4, Administrador.getEndereco());
-            sql.setInt(5, Administrador.getAprovado());
+            sql.setString(5, Administrador.getAprovado());
             sql.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Erro ao inserir administrador: " + e.getMessage());
@@ -99,20 +99,23 @@ public class AdministradorDAO {
     ArrayList<Administrador> meusAdministradores = new ArrayList<>();
     Conexao conexao = new Conexao();
     try {
-        String selectSQL = "SELECT id, nome, cpf, senha, aprovado, endereco FROM administrador";
+        String selectSQL = "SELECT * FROM administrador ORDER BY nome";
         PreparedStatement preparedStatement;
         preparedStatement = conexao.getConexao().prepareStatement(selectSQL);
         ResultSet resultado = preparedStatement.executeQuery();
         
         while (resultado.next()) {
+            // Criando o objeto Administrador com os valores recuperados
             Administrador administrador = new Administrador(
-                resultado.getInt("id"),
-                resultado.getString("nome"),
-                resultado.getString("cpf"),
-                resultado.getString("senha"),
-                resultado.getInt("aprovado"),
-                resultado.getString("endereco")
+                resultado.getInt("id"), // ID do Administrador
+                resultado.getString("NOME"), // Nome
+                resultado.getString("CPF"), // CPF
+                resultado.getString("SENHA"), // Senha
+                resultado.getString("APROVADO"), // Aprovado 
+                resultado.getString("ENDERECO") // Endereço
             );
+            
+            // Adicionando o objeto à lista
             meusAdministradores.add(administrador);
         }
     } catch (SQLException e) {
@@ -138,7 +141,7 @@ public class AdministradorDAO {
                         resultado.getString("NOME"),
                         resultado.getString("CPF"),
                         resultado.getString("SENHA"),
-                        resultado.getInt("APROVADO"),
+                        resultado.getString("APROVADO"),
                         resultado.getString("ENDERECO")
                         
                 );
@@ -181,23 +184,19 @@ public class AdministradorDAO {
     }
     
     public void aprovarAdmin(int id) throws SQLException {
-        Conexao conexao = new Conexao();
-        try {
-            String sql = "UPDATE administrador SET aprovado = 1 WHERE id = ?";
-            PreparedStatement stmt = conexao.getConexao().prepareStatement(sql);
-            stmt.setInt(1, id);
-            int rowsAffected = stmt.executeUpdate();
-            if (rowsAffected > 0) {
-               
-            } else {
-               
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Erro ao aprovar administrador: " + e.getMessage());
-        } finally {
-            conexao.closeConexao();
-        }
+    Conexao conexao = new Conexao();
+    try {
+        String sql = "UPDATE administrador SET aprovado = ? WHERE id = ?";
+        PreparedStatement stmt = conexao.getConexao().prepareStatement(sql);
+        stmt.setString(1, "S"); // Define "S" para o campo aprovado
+        stmt.setInt(2, id);     // Define o ID do administrador
+        stmt.executeUpdate();   // Executa a atualização
+    } catch (SQLException e) {
+        throw new RuntimeException("Erro ao aprovar administrador: " + e.getMessage());
+    } finally {
+        conexao.closeConexao(); // Fecha a conexão com o banco de dados
     }
+}
 
 
 }

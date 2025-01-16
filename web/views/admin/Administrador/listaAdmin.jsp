@@ -53,7 +53,7 @@
                                             <td><%= administrador.getCpf() %></td>
                                             <td><%= administrador.getEndereco() %></td>
                                             <td>
-                                            <% if (administrador.getAprovado() == 0) { %>
+                                            <% if (administrador.getAprovado().equals("N")) { %>
                                                 <a href="/aplicacaoMVC/admin/AdminController?acao=Aprovar&id=<%= administrador.getId() %>" 
                                                    class="btn btn-success">Aprovar</a>
                                             <% } else { %>

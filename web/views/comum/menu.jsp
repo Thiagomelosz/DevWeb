@@ -33,7 +33,7 @@
                             <a class="nav-link <%= currentURI.contains("/professor/logOut") ? "active" : "" %>" href="/aplicacaoMVC/professor/logOut">Logout</a>
                 <%      } else if (AlunoLogado != null) { %>
                             <!-- Menu para Aluno -->
-                            <a class="nav-link <%= currentURI.contains("/aluno/TurmasController") ? "active" : "" %>" href="/aplicacaoMVC/aluno/TurmasController?acao=Listar">Minhas Turmas</a>
+                            <a class="nav-link <%= currentURI.contains("/aluno/TurmasController") ? "active" : "" %>" href="/aplicacaoMVC/aluno/TurmasController?acao=Listar">Inscrição Turmas</a>
                             <a class="nav-link <%= currentURI.contains("/aluno/MinhasAulas") ? "active" : "" %>" href="/aplicacaoMVC/aluno/NotasController?acao=Listar">Minhas Notas</a>
                             <a class="nav-link <%= currentURI.contains("/admin/logOut") ? "active" : "" %>" href="/aplicacaoMVC/admin/logOut">Logout</a>
                 <%      } else { %>
