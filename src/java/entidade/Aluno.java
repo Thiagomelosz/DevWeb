@@ -143,5 +143,21 @@ public class Aluno {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+  
+public String toString() {
+    return "Aluno{" +
+            "id=" + id +
+            ", nome='" + nome + '\'' +
+            ", email='" + email + '\'' +
+            ", celular='" + celular + '\'' +
+            ", cpf='" + cpf + '\'' +
+            ", senha='" + senha + '\'' +
+            ", endereco='" + endereco + '\'' +
+            ", cidade='" + cidade + '\'' +
+            ", bairro='" + bairro + '\'' +
+            ", cep='" + cep + '\'' +
+            ", nota='" + nota + '\'' +
+            '}';
+}
 
 }

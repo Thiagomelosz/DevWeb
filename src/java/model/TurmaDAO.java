@@ -29,12 +29,12 @@ public class TurmaDAO {
         if (resultado > 0) {
             return true;  // Inserção bem-sucedida
         } else {
-            System.out.println("Nenhuma linha foi inserida.");
+            
             return false;  // Caso contrário, falhou
         }
     } catch (SQLException e) {
         // Captura e imprime o erro detalhado
-        System.out.println("Erro ao salvar a turma: " + e.getMessage());
+       
         e.printStackTrace();  // Isso vai ajudar a capturar mais detalhes sobre a falha
         return false;  // Falha na operação
     } finally {
@@ -79,10 +79,11 @@ public ArrayList<Turma> listaDeTurmas() {
     Conexao conexao = new Conexao();
     try {
         // Consulta SQL para pegar as informações necessárias
-        String selectSQL = "SELECT DISTINCT t.id, t.codigo_turma, d.nome AS nome_disciplina, p.nome AS professor "
+        String selectSQL = "SELECT t.id, t.codigo_turma, d.nome AS nome_disciplina, p.nome AS professor, a.id AS aluno_id, a.nome AS aluno_nome "
                    + "FROM turmas t "
                    + "JOIN disciplina d ON t.disciplina_id = d.id "
                    + "JOIN professores p ON p.id = t.professor_id "
+                   + "LEFT JOIN alunos a ON t.aluno_id = a.id "
                    + "ORDER BY t.codigo_turma";
 
         PreparedStatement preparedStatement = conexao.getConexao().prepareStatement(selectSQL);
@@ -99,6 +100,15 @@ public ArrayList<Turma> listaDeTurmas() {
 
                 // Adiciona a turma à lista
                 minhasTurmas.add(turma);
+
+                // Adiciona os alunos inscritos à turma
+                int alunoId = resultado.getInt("aluno_id");
+                if (alunoId != 0) {
+                    Aluno aluno = new Aluno();
+                    aluno.setId(alunoId);
+                    aluno.setNome(resultado.getString("aluno_nome"));
+                    turma.addAluno(aluno);
+                }
             }
         }
     } catch (SQLException e) {
@@ -108,9 +118,11 @@ public ArrayList<Turma> listaDeTurmas() {
     }
 
     // Log para verificar o tamanho da lista
-    System.out.println("Tamanho da lista de turmas: " + minhasTurmas.size());
+   
     return minhasTurmas;
 }
+
+
 
 
 

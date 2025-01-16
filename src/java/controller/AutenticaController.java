@@ -21,8 +21,7 @@ public class AutenticaController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("Chamado o método GET, redirecionando para o formulário de login.");
-        
+ 
         
         HttpSession session = request.getSession(false); 
         if (session != null && (session.getAttribute("aluno") != null ||
@@ -32,7 +31,7 @@ public class AutenticaController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/home");
 
         } else {
-            // Exibe o formulário de login
+            
             RequestDispatcher rd = request.getRequestDispatcher("/views/autenticacao/formLogin.jsp");
             rd.forward(request, response);
         }
@@ -46,9 +45,7 @@ public class AutenticaController extends HttpServlet {
         String senha = request.getParameter("senha");
         String tipoUsuario = request.getParameter("tipo_usuario");
 
-        System.out.println("Recebido: CPF=" + cpf + ", Tipo de Usuário=" + tipoUsuario);
-
-        
+      
         if (cpf == null || senha == null || tipoUsuario == null ||
             cpf.isEmpty() || senha.isEmpty() || tipoUsuario.isEmpty()) {
             redirecionarComErro(request, response, "Todos os campos são obrigatórios.");
@@ -61,15 +58,14 @@ public class AutenticaController extends HttpServlet {
             if (usuario != null) {
                 
                 HttpSession session = request.getSession();
-                session.setAttribute(tipoUsuario, usuario);
-                System.out.println(tipoUsuario + " autenticado com sucesso.");
+                session.setAttribute(tipoUsuario, usuario);              
 
                 redirecionarParaDashboard(request, response, tipoUsuario);
             } else {
                 redirecionarComErro(request, response, "Usuário ou senha incorretos.");
             }
         } catch (Exception ex) {
-            System.out.println("Erro ao autenticar usuário: " + ex.getMessage());
+            
             redirecionarComErro(request, response, "Erro interno. Tente novamente mais tarde.");
         }
     }
@@ -109,7 +105,7 @@ public class AutenticaController extends HttpServlet {
 
     private void redirecionarComErro(HttpServletRequest request, HttpServletResponse response, String mensagemErro)
             throws ServletException, IOException {
-        System.out.println("Erro: " + mensagemErro);
+        
         request.setAttribute("msgError", mensagemErro);
         RequestDispatcher rd = request.getRequestDispatcher("/views/autenticacao/formLogin.jsp");
         rd.forward(request, response);

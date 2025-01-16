@@ -22,16 +22,20 @@ public class Turma {
         this.alunoId = alunoId;
         this.codigoTurma = codigoTurma;
         this.nota = nota;
-
-        
-    }
-
-    public Turma(){
+  
     }
     
-       public void addAluno(Aluno aluno) {
-        this.alunos.add(aluno); 
-       }
+    public Turma() {
+        this.alunos = new ArrayList<>();
+    }
+
+    
+    public void addAluno(Aluno aluno) {
+            if (this.alunos == null) {
+                this.alunos = new ArrayList<>();
+            }
+            this.alunos.add(aluno);
+        }
 
     public int getId() {
         return id;
@@ -97,5 +101,25 @@ public class Turma {
     public List<Aluno> getAlunos() {
         return alunos;
     }
+    
+
+public void setAlunos(List<Aluno> alunos) {
+    this.alunos = alunos;
 }
+    
+   public boolean isAlunoInscrito(int alunoId) {
+    
+    if (alunos != null) {
+        for (Aluno aluno : alunos) {
+            
+            if (aluno.getId() == alunoId) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+}
+
     

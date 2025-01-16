@@ -18,7 +18,6 @@
             <jsp:include page="../../comum/menu.jsp" />
             <div class="mt-5">
 
-                <h1>Área Restrita</h1>
                 <h2>Lista de Turmas</h2>
 
                 <div class="table-responsive">
@@ -34,10 +33,12 @@
                         <tbody>
                             <%
                                 ArrayList<Turma> listaTurmas = (ArrayList<Turma>) request.getAttribute("listaTurmas");
+                                Aluno alunoLogado = (Aluno) request.getAttribute("alunoLogado");
 
-                                // Verifica se a lista de disciplinas não é nula nem vazia
                                 if (listaTurmas != null && !listaTurmas.isEmpty()) {
                                     for (Turma turma : listaTurmas) {
+                                        
+                                        boolean isInscrito = (alunoLogado != null) && turma.isAlunoInscrito(alunoLogado.getId());
                             %>
                                         <tr>
                                             <td><%= turma.getCodigoTurma() %></td>
@@ -47,7 +48,7 @@
                                                 <form action="/aplicacaoMVC/aluno/TurmasController" method="POST">
                                                     <input type="hidden" name="acao" value="Inscrever">
                                                     <input type="hidden" name="idTurma" value="<%= turma.getId() %>">
-                                                    <button type="submit" class="btn btn-success">Se Inscrever</button>
+                                                    <button type="submit" class="btn btn-success" <%= isInscrito ? "disabled" : "" %>>Se Inscrever</button>
                                                 </form>
                                             </td>
                                         </tr>

@@ -77,7 +77,7 @@ public class ProfessorDAO {
             sql.setString(3, Professor.getCpf());
             sql.setString(4, Professor.getSenha());
             sql.setInt(5, Professor.getId());
-            System.out.println("SQL: " + sql.toString());
+            
             sql.executeUpdate();
 
         } catch (SQLException e) {
@@ -92,7 +92,7 @@ public class ProfessorDAO {
         try {
             PreparedStatement sql = conexao.getConexao().prepareStatement("DELETE FROM professores WHERE ID = ? ");
             sql.setInt(1, Professor.getId());
-            System.out.println("SQL: " + sql.toString());
+           
             sql.executeUpdate();
             
 
@@ -149,7 +149,6 @@ public class ProfessorDAO {
         return null;
             
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
             throw new RuntimeException("Query de select (get) incorreta");
         } finally {
             conexao.closeConexao();

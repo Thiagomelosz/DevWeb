@@ -1,4 +1,4 @@
-package controller.admin;
+package controller.aluno;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Leonardo
  */
-@WebServlet(name = "AlunoLogOut", urlPatterns = {"/aluno/logOut"})
+@WebServlet(name = "AlunoLogoutController", urlPatterns = {"/aluno/AlunoLogoutController"})
 public class AlunoLogoutController extends HttpServlet {
 
     @Override

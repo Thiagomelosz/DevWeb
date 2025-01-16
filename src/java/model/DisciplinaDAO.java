@@ -84,7 +84,7 @@ public Disciplina get(int id) {
 
             int rowsAffected = sql.executeUpdate();
         if (rowsAffected > 0) {
-            //System.out.println("Disciplina atualizada com sucesso!");
+          
         } else {
             System.err.println("Nenhuma disciplina foi encontrada para atualizar. Verifique o ID.");
         }

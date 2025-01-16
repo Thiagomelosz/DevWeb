@@ -75,7 +75,7 @@ public class AlunoDAO {
             sql.setString(8, Aluno.getBairro());
             sql.setString(9, Aluno.getCep());
             sql.setInt(10, Aluno.getId());
-            System.out.println("SQL: " + sql.toString());
+            
             sql.executeUpdate();
 
         } catch (SQLException e) {
@@ -128,7 +128,7 @@ public class AlunoDAO {
             conexao.closeConexao();
         }
         
-     System.out.println("Tamanho da lista de alunos: " + meusAlunos.size());
+    
         return meusAlunos;
     }
 
@@ -156,7 +156,7 @@ public class AlunoDAO {
             return null;
         }
     } catch (SQLException e) {
-        System.out.println(e.getMessage());
+       
         throw new RuntimeException("Query de select (get) incorreta");
     } finally {
         conexao.closeConexao();
