@@ -34,10 +34,10 @@ public class ProfessorController extends HttpServlet {
             case "Listar":
   
                 ArrayList<Professor> listaProfessor = professorDAO.ListaDeProfessores();
-                System.out.println("Tamanho da lista de professores: " + (listaProfessor == null ? "null" : listaProfessor.size()));
+                
                 request.setAttribute("listaProfessor", listaProfessor);
 
-                System.out.println("Lista de Professor foi passada para a JSP.");
+               
                 rd = request.getRequestDispatcher("/views/admin/Professor/listaProfessor.jsp");
                 rd.forward(request, response);
                 break;

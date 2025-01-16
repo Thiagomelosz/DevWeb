@@ -1,7 +1,8 @@
 package model;
 
-import entidade.Turma;
 import entidade.Aluno;
+import entidade.Disciplina;
+import entidade.Turma;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -40,6 +41,36 @@ public class TurmaDAO {
         conexao.closeConexao();
     }
 }
+public ArrayList<Turma> getAll() {
+    ArrayList<Turma> turmas = new ArrayList<>();
+    Conexao conexao = new Conexao();
+    try {
+        // Consulta SQL para pegar apenas 'codigo_turma' e 'nome' (da disciplina)
+        String sqlQuery = "SELECT t.id, t.codigo_turma, d.nome AS nome_disciplina "
+                        + "FROM turmas t "
+                        + "JOIN disciplina d ON t.disciplina_id = d.id;";
+
+        Statement stmt = conexao.getConexao().createStatement();
+        ResultSet rs = stmt.executeQuery(sqlQuery);
+
+        while (rs.next()) {
+            // Criação do objeto Turma
+            Turma turma = new Turma();
+            
+            // Preenchendo com os dados da consulta (apenas 'codigo_turma' e 'nome_disciplina')
+            turma.setCodigoTurma(rs.getString("codigo_turma"));
+            turma.setNomeDisciplina(rs.getString("nome_disciplina"));
+            turma.setId(rs.getInt("id"));
+            // Adiciona a turma na lista
+            turmas.add(turma);
+        }
+    } catch (SQLException e) {
+        System.err.println("Erro ao listar turmas: " + e.getMessage());
+    } finally {
+        conexao.closeConexao();
+    }
+    return turmas;
+}
 
 
  
@@ -48,11 +79,11 @@ public ArrayList<Turma> listaDeTurmas() {
     Conexao conexao = new Conexao();
     try {
         // Consulta SQL para pegar as informações necessárias
-        String selectSQL = "SELECT t.id, t.codigo_turma, d.nome AS nome_disciplina, p.nome AS professor "
-                         + "FROM turmas t "
-                         + "JOIN disciplina d ON t.disciplina_id = d.id "
-                         + "JOIN professores p ON p.id = t.professor_id "
-                         + "ORDER BY t.codigo_turma";
+        String selectSQL = "SELECT DISTINCT t.id, t.codigo_turma, d.nome AS nome_disciplina, p.nome AS professor "
+                   + "FROM turmas t "
+                   + "JOIN disciplina d ON t.disciplina_id = d.id "
+                   + "JOIN professores p ON p.id = t.professor_id "
+                   + "ORDER BY t.codigo_turma";
 
         PreparedStatement preparedStatement = conexao.getConexao().prepareStatement(selectSQL);
         ResultSet resultado = preparedStatement.executeQuery();
@@ -157,7 +188,7 @@ public ArrayList<Turma> listaDeTurmas() {
     }
         public boolean inscreverAluno(int alunoId, int turmaId) {
             Conexao conexao = new Conexao();
-            String sql = "INSERT INTO turma_aluno (turma_id, aluno_id) VALUES (?, ?)";
+            String sql = "INSERT INTO turma(turma_id, aluno_id) VALUES (?, ?)";
             try {
                 PreparedStatement stmt = conexao.getConexao().prepareStatement(sql);
                 stmt.setInt(1, turmaId);
@@ -171,5 +202,46 @@ public ArrayList<Turma> listaDeTurmas() {
                 conexao.closeConexao();
             }
         }
+        
+         public ArrayList<Turma> TurmasRelatorio() {
+        ArrayList<Turma> turmas = new ArrayList<>();
+        String query = "SELECT t.id AS turma_id, t.codigo_turma, a.id AS aluno_id, a.nome AS aluno_nome, t.nota, d.id AS disciplina_id " +
+                       "FROM turmas t " +
+                       "JOIN alunos a ON a.id = t.aluno_id " +
+                       "JOIN disciplina d ON d.id = t.disciplina_id";
+
+        Conexao conexao = new Conexao();
+        try {
+            PreparedStatement sql = conexao.getConexao().prepareStatement(query);
+            ResultSet resultado = sql.executeQuery();
+
+
+            while (resultado.next()) {
+
+                Aluno aluno = new Aluno();
+                aluno.setId(resultado.getInt("aluno_id"));
+                aluno.setNome(resultado.getString("aluno_nome"));
+                
+                DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
+                Disciplina disciplina = new Disciplina();
+
+
+                Turma turma = new Turma();
+                turma.setId(resultado.getInt("turma_id"));
+                turma.setCodigoTurma(resultado.getString("codigo_turma"));
+                turma.setDisciplinaId(resultado.getInt("disciplina_id"));
+                turma.setNota(resultado.getDouble("nota"));
+
+
+                turma.addAluno(aluno);
+
+                turmas.add(turma);
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar turmas com alunos e notas: " + e.getMessage());
+        }
+
+        return turmas;
+    }
 }
 

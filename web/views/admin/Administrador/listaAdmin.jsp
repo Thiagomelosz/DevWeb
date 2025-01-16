@@ -37,15 +37,15 @@
                         <tbody>
                             <%
                                 //verificando se a lista é null
-                                ArrayList<Administrador> ListaDeAdministrador = (ArrayList<Administrador>) request.getAttribute("ListaDeAdministrador");
-                                if (ListaDeAdministrador == null) {
-                                    System.out.println("A lista de Admin é NULA na JSP!");
+                                ArrayList<Administrador> getAll = (ArrayList<Administrador>) request.getAttribute("getAll");
+                                if (getAll == null) {
+                                   
                                 } else {
-                                    System.out.println("Tamanho da lista de Admin na JSP: " + ListaDeAdministrador.size());
+                                    
                                 }
 
-                                if (ListaDeAdministrador != null && !ListaDeAdministrador.isEmpty()) {
-                                    for (Administrador administrador : ListaDeAdministrador) {
+                                if (getAll != null && !getAll.isEmpty()) {
+                                    for (Administrador administrador : getAll) {
                             %>
                                         <tr>
                                             <td><%= administrador.getId() %></td>

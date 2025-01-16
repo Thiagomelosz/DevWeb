@@ -34,11 +34,11 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
         return;
     }
 
-    System.out.println("Ação recebida: " + acao);
+  
     switch (acao) {
         case "Listar":
             TurmaDAO turmaDAO = new TurmaDAO();
-            ArrayList<Turma> listaTurmas = turmaDAO.listaDeTurmas();
+            ArrayList<Turma> listaTurmas = turmaDAO.getAll();
             request.setAttribute("listaTurmas", listaTurmas);
             rd = request.getRequestDispatcher("/views/admin/RelatorioGeral/listaRelatorio.jsp");
             rd.forward(request, response);

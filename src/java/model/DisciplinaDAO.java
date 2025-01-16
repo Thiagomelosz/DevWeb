@@ -84,7 +84,7 @@ public Disciplina get(int id) {
 
             int rowsAffected = sql.executeUpdate();
         if (rowsAffected > 0) {
-            System.out.println("Disciplina atualizada com sucesso!");
+            //System.out.println("Disciplina atualizada com sucesso!");
         } else {
             System.err.println("Nenhuma disciplina foi encontrada para atualizar. Verifique o ID.");
         }
@@ -97,27 +97,18 @@ public Disciplina get(int id) {
 }
 
     @Override
-public void delete(int id) {
-    Conexao conexao = new Conexao();
-    try {
-        System.out.println("Tentando excluir disciplina com ID: " + id);  // Verificando o ID
-        PreparedStatement sql = conexao.getConexao().prepareStatement("DELETE FROM disciplina WHERE id = ?");
-        sql.setInt(1, id);
+ public void delete(int id) {
+        String query = "DELETE FROM disciplina WHERE ID = ?";
 
-        int rowsAffected = sql.executeUpdate();
-        if (rowsAffected > 0) {
-            System.out.println("Disciplina excluída com sucesso!");
-        } else {
-            System.err.println("Nenhuma disciplina foi encontrada para exclusão. Verifique o ID.");
+        Conexao conexao = new Conexao();
+        try {
+            PreparedStatement sql = conexao.getConexao().prepareStatement(query);
+            sql.setInt(1, id);
+            sql.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Erro ao excluir disciplina: " + e.getMessage());
         }
-
-    } catch (SQLException e) {
-        System.err.println("Query de delete (excluir disciplina) incorreta: " + e.getMessage());
-    } finally {
-        conexao.closeConexao();
     }
-}
-
 
     @Override
 

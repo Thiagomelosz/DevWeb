@@ -1,5 +1,6 @@
 package controller.admin;
 
+import entidade.Disciplina;
 import entidade.Turma;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -8,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.DisciplinaDAO;
 import model.TurmaDAO;
 
 @WebServlet(name = "TurmaController", urlPatterns = {"/admin/TurmaController"})
@@ -17,57 +19,36 @@ public class TurmaController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Recuperar o parâmetro "acao" da requisição
-        String acao = request.getParameter("acao");
+        String acao = (String) request.getParameter("acao");
+        Turma turma = new Turma();
+        TurmaDAO turmaDAO = new TurmaDAO();
         RequestDispatcher rd;
-
-        System.out.println("Ação recebida no GET: " + acao);
-
-        if (acao == null || acao.isEmpty()) {
-            System.out.println("Ação inválida recebida.");
-            request.setAttribute("msgError", "Ação inválida.");
-            rd = request.getRequestDispatcher("/views/admin/Turmas/listaTurmas.jsp");
-            rd.forward(request, response);
-            return;
-        }
+        //System.out.println("Ação recebida no GET: " + acao);
 
         switch (acao) {
+            
             case "Listar":
-                // Listar todas as turmas
-                TurmaDAO turmaDAO = new TurmaDAO();
-                System.out.println("Listando todas as turmas...");
+              
                 request.setAttribute("listaTurmas", turmaDAO.listaDeTurmas());
                 rd = request.getRequestDispatcher("/views/admin/Turmas/listaTurmas.jsp");
                 rd.forward(request, response);
                 break;
 
-            case "Alterar":
-            case "Excluir":
-                // Recuperar turma com base no id
-                try {
-                    String idParam = request.getParameter("id");
-                    System.out.println("ID recebido na URL: " + idParam);
-                    System.out.println("ID recebido no GET (Alterar/Excluir): " + idParam);
-                    int id = Integer.parseInt(idParam); // Tentativa de conversão para inteiro
-                    System.out.println("ID convertido: " + id);
-                    if (id == 0) {
-                        System.out.println("ID é zero, possível problema na URL.");
-                    }
-                    TurmaDAO turmaDAOAlterarExcluir = new TurmaDAO();
-                    Turma turma = turmaDAOAlterarExcluir.get(id);
-                    request.setAttribute("turma", turma);
-                    request.setAttribute("msgError", "");
-                    request.setAttribute("acao", acao);
-                    request.setAttribute("link", "/aplicacaoMVC/admin/TurmaController?acao=Listar");
-                    rd = request.getRequestDispatcher("/views/admin/Turmas/formTurma.jsp");
-                    rd.forward(request, response);
-                } catch (NumberFormatException e) {
-                    System.out.println("Erro ao tentar converter o ID no GET: " + e.getMessage());
-                    request.setAttribute("msgError", "ID inválido.");
-                    rd = request.getRequestDispatcher("/views/admin/Turmas/listaTurmas.jsp");
-                    rd.forward(request, response);
-                }
+             case "Alterar":
+             case "Excluir":
+                 
+                int id = Integer.parseInt(request.getParameter("id"));
+                turma = turmaDAO.get(id);
+
+                
+                request.setAttribute("turma", turma);
+                request.setAttribute("msgError", "");
+                request.setAttribute("acao", acao);
+
+                rd = request.getRequestDispatcher("/views/admin/Turmas/formTurma.jsp");
+                rd.forward(request, response);
                 break;
+                 
 
             case "Incluir":
                 // Incluir nova turma

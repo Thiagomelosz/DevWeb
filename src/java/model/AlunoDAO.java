@@ -11,7 +11,7 @@ public class AlunoDAO {
     public void Inserir(Aluno Aluno) throws Exception {
         Conexao conexao = new Conexao();
         try {
-            PreparedStatement sql = conexao.getConexao().prepareStatement("INSERT INTO Alunos (nome, email, celular, cpf, senha, endereco, cidade, bairro, cep)"
+            PreparedStatement sql = conexao.getConexao().prepareStatement("INSERT INTO alunos (nome, email, celular, cpf, senha, endereco, cidade, bairro, cep)"
         + " VALUES (?,?,?,?,?,?,?,?,?)");
             sql.setString(1, Aluno.getNome());
             sql.setString(2, Aluno.getEmail());
@@ -35,7 +35,7 @@ public class AlunoDAO {
     public Aluno getAluno(int id) throws Exception {
     Conexao conexao = new Conexao();
     try {
-        PreparedStatement sql = conexao.getConexao().prepareStatement("SELECT * FROM Alunos WHERE ID = ?");
+        PreparedStatement sql = conexao.getConexao().prepareStatement("SELECT * FROM alunos WHERE ID = ?");
         sql.setInt(1, id);
         ResultSet resultado = sql.executeQuery();
 
@@ -64,7 +64,7 @@ public class AlunoDAO {
     public void Alterar(Aluno Aluno) throws Exception {
         Conexao conexao = new Conexao();
         try {
-            PreparedStatement sql = conexao.getConexao().prepareStatement("UPDATE Alunos SET nome = ?, email = ?, celular = ?, cpf = ?, senha = ?, endereco = ?, cidade = ?, bairro = ?, cep = ? WHERE ID = ?");
+            PreparedStatement sql = conexao.getConexao().prepareStatement("UPDATE alunos SET nome = ?, email = ?, celular = ?, cpf = ?, senha = ?, endereco = ?, cidade = ?, bairro = ?, cep = ? WHERE ID = ?");
             sql.setString(1, Aluno.getNome());
             sql.setString(2, Aluno.getEmail());
             sql.setString(3, Aluno.getCelular());
@@ -88,7 +88,7 @@ public class AlunoDAO {
     public void Excluir(Aluno Aluno) throws Exception {
         Conexao conexao = new Conexao();
         try {
-            PreparedStatement sql = conexao.getConexao().prepareStatement("DELETE FROM Alunos WHERE ID = ? ");
+            PreparedStatement sql = conexao.getConexao().prepareStatement("DELETE FROM alunos WHERE ID = ? ");
             sql.setInt(1, Aluno.getId());
             sql.executeUpdate();
 
@@ -103,7 +103,7 @@ public class AlunoDAO {
         ArrayList<Aluno> meusAlunos = new ArrayList();
         Conexao conexao = new Conexao();
         try {
-            String selectSQL = "SELECT * FROM Alunos order by nome";
+            String selectSQL = "SELECT * FROM alunos order by nome";
             PreparedStatement preparedStatement;
             preparedStatement = conexao.getConexao().prepareStatement(selectSQL);
             ResultSet resultado = preparedStatement.executeQuery();
@@ -135,7 +135,7 @@ public class AlunoDAO {
     public Aluno Logar(Aluno Aluno) throws Exception {
         Conexao conexao = new Conexao();
         try {
-            PreparedStatement sql = conexao.getConexao().prepareStatement("SELECT * FROM Alunos WHERE cpf=? and senha =? LIMIT 1");
+            PreparedStatement sql = conexao.getConexao().prepareStatement("SELECT * FROM alunos WHERE cpf=? and senha =? LIMIT 1");
             sql.setString(1, Aluno.getCpf());
             sql.setString(2, Aluno.getSenha());
             ResultSet resultado = sql.executeQuery();
@@ -163,7 +163,7 @@ public class AlunoDAO {
             conexao.closeConexao();
         }
     }
-    public void inserirAlunoNaTurma(int alunoId, int professorId, int disciplinaId, String codigoTurma) throws Exception {
+public boolean inserirAlunoNaTurma(int alunoId, int professorId, int disciplinaId, String codigoTurma) {
     Conexao conexao = new Conexao();
     try {
         // Prepara a query de inserção
@@ -178,15 +178,31 @@ public class AlunoDAO {
         sql.setString(4, codigoTurma);
         
         // Executa a inserção
-        sql.executeUpdate();
+        int rowsAffected = sql.executeUpdate();
         
+        // Se uma linha foi afetada, a operação foi bem-sucedida
+        return rowsAffected > 0;
+
     } catch (SQLException e) {
         e.printStackTrace(); // Imprime o erro no console
-        throw new RuntimeException("Erro ao inserir o aluno na turma.", e);
+        return false; // Retorna false em caso de erro
     } finally {
         conexao.closeConexao(); // Fecha a conexão
     }
 }
-
+public boolean isAlunoInscritoNaTurma(int alunoId, String codigoTurma) {
+    Conexao conexao = new Conexao();
+    // Verifica no banco se o aluno já está inscrito na turma
+    String sql = "SELECT 1 FROM turmas WHERE aluno_id = ? AND codigo_turma = ?";
+    try (PreparedStatement stmt = conexao.getConexao().prepareStatement(sql)) {
+        stmt.setInt(1, alunoId);
+        stmt.setString(2, codigoTurma);
+        ResultSet rs = stmt.executeQuery();
+        return rs.next();  // Se houver algum registro, o aluno está inscrito
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    }
+}
 
 }

@@ -34,10 +34,10 @@ public class AlunoController extends HttpServlet {
             case "Listar":
   
                 ArrayList<Aluno> listaAlunos = alunoDAO.ListaDeAlunos();
-                System.out.println("Tamanho da lista de alunos: " + (listaAlunos == null ? "null" : listaAlunos.size()));
+                
                 request.setAttribute("listaAluno", listaAlunos);
 
-                System.out.println("Lista de alunos foi passada para a JSP.");
+                
                 rd = request.getRequestDispatcher("/views/admin/Alunos/listaAluno.jsp");
                 rd.forward(request, response);
                 break;
@@ -134,7 +134,7 @@ public class AlunoController extends HttpServlet {
             rd.forward(request, response);
 
         } catch (Exception e) {
-            System.out.println("Erro ao realizar operação: " + e.getMessage());
+            
             request.setAttribute("msgError", "Erro ao realizar a operação: " + e.getMessage());
             request.setAttribute("link", "/aplicacaoMVC/admin/AlunoController?acao=Listar");
             rd = request.getRequestDispatcher("/views/admin/Alunos/formAluno.jsp");
