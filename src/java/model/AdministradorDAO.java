@@ -158,7 +158,7 @@ public class AdministradorDAO {
     public Administrador Logar(Administrador Administrador) throws Exception {
         Conexao conexao = new Conexao();
         try {
-            PreparedStatement sql = conexao.getConexao().prepareStatement("SELECT * FROM administrador WHERE cpf=? and senha =? LIMIT 1");
+            PreparedStatement sql = conexao.getConexao().prepareStatement("SELECT * FROM administrador WHERE cpf=? and senha =? and aprovado = 'S' LIMIT 1");
             sql.setString(1, Administrador.getCpf());
             sql.setString(2, Administrador.getSenha());
             ResultSet resultado = sql.executeQuery();

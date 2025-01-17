@@ -78,4 +78,40 @@ public class RelatorioDAO {
         }
         return relatorios;
     }
+    
+ public List<Relatorio> getRelatorioPorProfessorId(int professorId) {
+    Conexao conexao = new Conexao();
+    List<Relatorio> relatorios = new ArrayList<>();
+    try {
+        String sqlQuery = "SELECT t.id AS id, a.nome, t.codigo_turma, t.nota " +
+                          "FROM turmas t " +
+                          "JOIN alunos a ON t.aluno_id = a.id " +
+                          "WHERE t.professor_id = ?";
+
+        PreparedStatement sql = conexao.getConexao().prepareStatement(sqlQuery);
+        sql.setInt(1, professorId);
+
+        ResultSet rs = sql.executeQuery();
+
+        // Adiciona um log para ver quantos resultados foram encontrados
+        int count = 0;
+        while (rs.next()) {
+            Relatorio relatorio = new Relatorio();
+            relatorio.setTurmaId(rs.getInt("id"));
+            relatorio.setAlunoNome(rs.getString("nome"));
+            relatorio.setCodigoTurma(rs.getString("codigo_turma"));
+            relatorio.setNota(rs.getDouble("nota"));
+            relatorios.add(relatorio);
+            count++;
+        }
+
+        System.out.println("Número de relatórios encontrados: " + count);
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        conexao.closeConexao();
+    }
+    return relatorios;
+}
 }

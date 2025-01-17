@@ -91,7 +91,7 @@ public class AutenticaController extends HttpServlet {
                 destino = "/admin/dashboard";
                 break;
             case "professor":
-                destino = "/professor/Acesso";
+                destino = "/Professor/Acesso";
                 break;
             case "aluno":
                 destino = "/Aluno/Acesso";

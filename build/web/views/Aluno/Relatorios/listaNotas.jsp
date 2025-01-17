@@ -17,15 +17,7 @@
             <jsp:include page="../../comum/menu.jsp" />
             <div class="mt-5">
                 <h1>Notas do Aluno</h1>
-                <!-- Remova ou comente as linhas abaixo se não quiser exibir mensagens de erro ou sucesso -->
-                <!--
-                <c:if test="${not empty msgError}">
-                    <div class="alert alert-danger">${msgError}</div>
-                </c:if>
-                <c:if test="${not empty msgSuccess}">
-                    <div class="alert alert-success">${msgSuccess}</div>
-                </c:if>
-                -->
+                
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>

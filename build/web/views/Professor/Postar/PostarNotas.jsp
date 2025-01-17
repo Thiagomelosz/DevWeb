@@ -1,5 +1,6 @@
 <%@page import="entidade.Relatorio"%>
 <%@page import="entidade.Aluno"%>
+<%@page import="entidade.Professor"%>
 <%@page import="java.util.List"%>
 
 <!DOCTYPE html>
@@ -24,13 +25,15 @@
                             <tr>
                                 <th scope="col">ID da Turma</th>
                                 <th scope="col">Código da Turma</th>
+                                <th scope="col">Nome do Aluno</th>
                                 <th scope="col">Nota</th>
+                                <th scope="col">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
                             <%
                                 List<Relatorio> listaRelatorios = (List<Relatorio>) request.getAttribute("listaRelatorios");
-                                Aluno alunoLogado = (Aluno) request.getAttribute("alunoLogado");
+                                Professor professorLogado = (Professor) request.getAttribute("professorLogado");
 
                                 if (listaRelatorios != null && !listaRelatorios.isEmpty()) {
                                     for (Relatorio relatorio : listaRelatorios) {
@@ -38,14 +41,24 @@
                                         <tr>
                                             <td><%= relatorio.getTurmaId() %></td>
                                             <td><%= relatorio.getCodigoTurma() %></td>
+                                            <td><%= relatorio.getAlunoNome() %></td>
                                             <td><%= relatorio.getNota() %></td>
+                                            <td>
+                                                <form action="AlterarNotaController" method="post">
+                                                    <input type="hidden" name="turmaId" value="<%= relatorio.getTurmaId() %>">
+                                                    <input type="hidden" name="codigoTurma" value="<%= relatorio.getCodigoTurma() %>">
+                                                    <input type="hidden" name="alunoNome" value="<%= relatorio.getAlunoNome() %>">
+                                                    <input type="hidden" name="nota" value="<%= relatorio.getNota() %>">
+                                                    <a href="/aplicacaoMVC/professor/PostarNotasController?acao=Alterar&id=<%= relatorio.getTurmaId() %>" class="btn btn-warning">Alterar</a>
+                                                </form>
+                                            </td>
                                         </tr>
                             <%
                                     }
                                 } else {
                             %>
                                     <tr>
-                                        <td colspan="3">Nenhuma nota encontrada.</td>
+                                        <td colspan="5">Nenhuma nota encontrada.</td>
                                     </tr>
                             <%
                                 }

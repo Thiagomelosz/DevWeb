@@ -28,9 +28,9 @@
                             <a class="nav-link <%= currentURI.contains("/admin/logOut") ? "active" : "" %>" href="/aplicacaoMVC/admin/logOut">Logout</a>
                 <%      } else if (ProfessorLogado != null) { %>
                             <!-- Menu para Professor -->
-                            <a class="nav-link <%= currentURI.contains("/professor/dashboard") ? "active" : "" %>" href="/aplicacaoMVC/professor/dashboard">Dashboard</a>
+                            <a class="nav-link <%= currentURI.contains("/Professor/PostarNotasController") ? "active" : "" %>" href="/aplicacaoMVC//Professor/PostarNotasController?acao=Listar">Postar Notas</a>
                             <a class="nav-link <%= currentURI.contains("/professor/Cursos") ? "active" : "" %>" href="/aplicacaoMVC/professor/Cursos">Meus Cursos</a>
-                            <a class="nav-link <%= currentURI.contains("/professor/logOut") ? "active" : "" %>" href="/aplicacaoMVC/professor/logOut">Logout</a>
+                            <a class="nav-link <%= currentURI.contains("/professor/ProfessorLogoutController") ? "active" : "" %>" href="/aplicacaoMVC/professor/ProfessorLogoutController">Logout</a>
                 <%      } else if (AlunoLogado != null) { %>
                             <!-- Menu para Aluno -->
                             <a class="nav-link <%= currentURI.contains("/aluno/TurmasController") ? "active" : "" %>" href="/aplicacaoMVC/aluno/TurmasController?acao=Listar">Inscrição Turmas</a>
