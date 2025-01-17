@@ -49,7 +49,7 @@
                                                     <input type="hidden" name="codigoTurma" value="<%= relatorio.getCodigoTurma() %>">
                                                     <input type="hidden" name="alunoNome" value="<%= relatorio.getAlunoNome() %>">
                                                     <input type="hidden" name="nota" value="<%= relatorio.getNota() %>">
-                                                    <a href="/aplicacaoMVC/professor/PostarNotasController?acao=Alterar&id=<%= relatorio.getTurmaId() %>" class="btn btn-warning">Alterar</a>
+                                                    <a href="/aplicacaoMVC/Professor/PostarNotasController?acao=Alterar&id=<%= relatorio.getTurmaId() %>" class="btn btn-warning">Alterar</a>       
                                                 </form>
                                             </td>
                                         </tr>

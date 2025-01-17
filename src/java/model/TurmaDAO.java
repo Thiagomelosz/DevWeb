@@ -255,5 +255,32 @@ public ArrayList<Turma> listaDeTurmas() {
 
         return turmas;
     }
+         
+         
+   public Turma getTurmaPorId(int id) {
+    Conexao conexao = new Conexao();
+    Turma turma = null;
+    try {
+        String sqlQuery = "SELECT * FROM turmas WHERE id = ?";
+        PreparedStatement sql = conexao.getConexao().prepareStatement(sqlQuery);
+        sql.setInt(1, id);
+        ResultSet rs = sql.executeQuery();
+        if (rs.next()) {
+            turma = new Turma();
+            turma.setId(rs.getInt("id"));
+            turma.setProfessorId(rs.getInt("professor_id"));
+            turma.setDisciplinaId(rs.getInt("disciplina_id"));
+            turma.setAlunoId(rs.getInt("aluno_id"));
+            turma.setCodigoTurma(rs.getString("codigo_turma"));
+            turma.setNota(rs.getDouble("nota"));
+        }
+    } catch (SQLException e) {
+        System.err.println("Erro ao buscar turma por ID: " + e.getMessage());
+    } finally {
+        conexao.closeConexao();
+    }
+    return turma;
+    }
+
 }
 

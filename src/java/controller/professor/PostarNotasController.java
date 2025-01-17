@@ -1,5 +1,7 @@
 package controller.professor;
 
+import entidade.Turma;
+import model.TurmaDAO;
 import entidade.Relatorio;
 import entidade.Professor;
 import java.io.IOException;
@@ -24,7 +26,7 @@ public class PostarNotasController extends HttpServlet {
 
         if (acao == null || acao.isEmpty()) {
             request.setAttribute("msgError", "Ação inválida.");
-            rd = request.getRequestDispatcher("/views/Aluno/Relatorios/listaNotas.jsp");
+            rd = request.getRequestDispatcher("/views/Professor/Postar/listaNotas.jsp");
             rd.forward(request, response);
             return;
         }
@@ -36,7 +38,7 @@ public class PostarNotasController extends HttpServlet {
 
                 if (professorLogado == null) {
                     request.setAttribute("msgError", "Professor não está logado.");
-                    rd = request.getRequestDispatcher("/views/Aluno/Relatorios/listaNotas.jsp");
+                    rd = request.getRequestDispatcher("/views/Professor/Postar/listaNotas.jsp");
                     rd.forward(request, response);
                     return;
                 }
@@ -57,6 +59,36 @@ public class PostarNotasController extends HttpServlet {
                 rd = request.getRequestDispatcher("/views/Professor/Postar/PostarNotas.jsp");
                 rd.forward(request, response);
                 break;
+                
+            case "Alterar": 
+                try {
+                    int turmaId = Integer.parseInt(request.getParameter("id"));
+                    RelatorioDAO relatorioDAOAlterar = new RelatorioDAO();
+                    List<Relatorio> listaRelatoriosAlterar = relatorioDAOAlterar.getRelatorioPorTurmaId(turmaId);
+
+                    // Adicionando logs para depuração
+                    System.out.println("Turma ID para alteração: " + turmaId);
+                    System.out.println("Número de relatórios encontrados para alteração: " + listaRelatoriosAlterar.size());
+
+                    for (Relatorio relatorio : listaRelatoriosAlterar) {
+                        System.out.println("Relatório - Turma ID: " + relatorio.getTurmaId() + ", Aluno Nome: " + relatorio.getAlunoNome() + ", Código Turma: " + relatorio.getCodigoTurma() + ", Nota: " + relatorio.getNota());
+                    }
+
+                    // Adicionando a turma ao request
+                    TurmaDAO turmaDAO = new TurmaDAO();
+                    Turma turma = turmaDAO.getTurmaPorId(turmaId);
+                    request.setAttribute("turma", turma);
+
+                    request.setAttribute("listaRelatorios", listaRelatoriosAlterar);
+                    request.setAttribute("acao", acao);
+                    rd = request.getRequestDispatcher("/views/Professor/Postar/FormNotas.jsp");
+                    rd.forward(request, response);
+                } catch (Exception e) {
+                    request.setAttribute("msgError", "Erro ao buscar a turma: " + e.getMessage());
+                    rd = request.getRequestDispatcher("/views/Professor/Postar/PostarNotas.jsp");
+                    rd.forward(request, response);
+                }
+                break;
 
             default:
                 request.setAttribute("msgError", "Ação inválida.");
@@ -65,4 +97,46 @@ public class PostarNotasController extends HttpServlet {
                 break;
         }
     }
+
+        @Override
+        protected void doPost(HttpServletRequest request, HttpServletResponse response)
+                throws ServletException, IOException {
+            String acao = request.getParameter("acao");
+
+            if ("Atualizar".equals(acao)) {
+                try {
+                    int turmaId = Integer.parseInt(request.getParameter("id"));
+                    int professorId = Integer.parseInt(request.getParameter("professorId"));
+                    int disciplinaId = Integer.parseInt(request.getParameter("disciplinaId"));
+                    int alunoId = Integer.parseInt(request.getParameter("alunoId"));
+                    String codigoTurma = request.getParameter("codigoTurma");
+                    double nota = Double.parseDouble(request.getParameter("nota"));
+
+                    Turma turma = new Turma();
+                    turma.setId(turmaId);
+                    turma.setProfessorId(professorId);
+                    turma.setDisciplinaId(disciplinaId);
+                    turma.setAlunoId(alunoId);
+                    turma.setCodigoTurma(codigoTurma);
+                    turma.setNota(nota);
+
+                    TurmaDAO turmaDAO = new TurmaDAO();
+                    turmaDAO.update(turma);
+
+                    // Adicionando logs para depuração
+                    System.out.println("Turma atualizada - ID: " + turmaId + ", Professor ID: " + professorId + ", Disciplina ID: " + disciplinaId + ", Aluno ID: " + alunoId + ", Código Turma: " + codigoTurma + ", Nota: " + nota);
+
+                    request.getSession().setAttribute("msgSuccess", "Turma atualizada com sucesso.");
+                    response.sendRedirect(request.getContextPath() + "/Professor/PostarNotasController?acao=Listar");
+                } catch (Exception e) {
+                    request.getSession().setAttribute("msgError", "Erro ao atualizar a turma: " + e.getMessage());
+                    response.sendRedirect(request.getContextPath() + "/Professor/PostarNotasController?acao=Listar");
+                }
+            }
+        }
+
+
 }
+
+
+
