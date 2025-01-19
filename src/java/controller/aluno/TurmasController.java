@@ -42,7 +42,7 @@ public class TurmasController extends HttpServlet {
                 TurmaDAO turmaDAO = new TurmaDAO();
                 ArrayList<Turma> listaTurmas = turmaDAO.listaDeTurmas();
                 request.setAttribute("listaTurmas", listaTurmas);
-                request.setAttribute("alunoLogado", alunoLogado); // Adicione isso para passar o aluno logado para o JSP
+                request.setAttribute("alunoLogado", alunoLogado); 
                 rd = request.getRequestDispatcher("/views/Aluno/Turmas/listaTurmas.jsp");
                 rd.forward(request, response);
                 break;

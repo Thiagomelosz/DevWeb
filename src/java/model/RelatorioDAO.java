@@ -23,7 +23,7 @@ public class RelatorioDAO {
 
             ResultSet rs = sql.executeQuery();
 
-            // Adiciona um log para ver quantos resultados foram encontrados
+            
             int count = 0;
             while (rs.next()) {
                 Relatorio relatorio = new Relatorio();
@@ -105,7 +105,7 @@ public class RelatorioDAO {
             count++;
         }
 
-        System.out.println("Número de relatórios encontrados: " + count);
+       // System.out.println("Número de relatórios encontrados: " + count);
 
     } catch (SQLException e) {
         e.printStackTrace();

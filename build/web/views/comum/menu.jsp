@@ -28,8 +28,8 @@
                             <a class="nav-link <%= currentURI.contains("/admin/logOut") ? "active" : "" %>" href="/aplicacaoMVC/admin/logOut">Logout</a>
                 <%      } else if (ProfessorLogado != null) { %>
                             <!-- Menu para Professor -->
-                            <a class="nav-link <%= currentURI.contains("/Professor/PostarNotasController") ? "active" : "" %>" href="/aplicacaoMVC//Professor/PostarNotasController?acao=Listar">Postar Notas</a>
-                            <a class="nav-link <%= currentURI.contains("/professor/Cursos") ? "active" : "" %>" href="/aplicacaoMVC/professor/Cursos">Meus Cursos</a>
+                            <a class="nav-link <%= currentURI.contains("/Professor/PostarNotasController") ? "active" : "" %>" href="/aplicacaoMVC//Professor/PostarNotasController?acao=Listar">Gerenciar Notas</a>
+                            <!-- a class="nav-link <%= currentURI.contains("/professor/Cursos") ? "active" : "" %>" href="/aplicacaoMVC/professor/Cursos">Meus Cursos</a-->
                             <a class="nav-link <%= currentURI.contains("/professor/ProfessorLogoutController") ? "active" : "" %>" href="/aplicacaoMVC/professor/ProfessorLogoutController">Logout</a>
                 <%      } else if (AlunoLogado != null) { %>
                             <!-- Menu para Aluno -->

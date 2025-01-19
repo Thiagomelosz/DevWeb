@@ -47,12 +47,9 @@ public class PostarNotasController extends HttpServlet {
                 List<Relatorio> listaRelatorios = relatorioDAO.getRelatorioPorProfessorId(professorLogado.getId());
 
                 // Adicionando logs para depuração
-                System.out.println("Professor ID: " + professorLogado.getId());
-                System.out.println("Número de relatórios encontrados: " + listaRelatorios.size());
-
+               
                 for (Relatorio relatorio : listaRelatorios) {
-                    System.out.println("Relatório - Turma ID: " + relatorio.getTurmaId() + ", Aluno Nome: " + relatorio.getAlunoNome() + ", Código Turma: " + relatorio.getCodigoTurma() + ", Nota: " + relatorio.getNota());
-                }
+                   }
 
                 request.setAttribute("listaRelatorios", listaRelatorios);
                 request.setAttribute("professorLogado", professorLogado);
@@ -67,12 +64,8 @@ public class PostarNotasController extends HttpServlet {
                     List<Relatorio> listaRelatoriosAlterar = relatorioDAOAlterar.getRelatorioPorTurmaId(turmaId);
 
                     // Adicionando logs para depuração
-                    System.out.println("Turma ID para alteração: " + turmaId);
-                    System.out.println("Número de relatórios encontrados para alteração: " + listaRelatoriosAlterar.size());
-
-                    for (Relatorio relatorio : listaRelatoriosAlterar) {
-                        System.out.println("Relatório - Turma ID: " + relatorio.getTurmaId() + ", Aluno Nome: " + relatorio.getAlunoNome() + ", Código Turma: " + relatorio.getCodigoTurma() + ", Nota: " + relatorio.getNota());
-                    }
+                                        for (Relatorio relatorio : listaRelatoriosAlterar) {
+                       }
 
                     // Adicionando a turma ao request
                     TurmaDAO turmaDAO = new TurmaDAO();
@@ -122,9 +115,6 @@ public class PostarNotasController extends HttpServlet {
 
                     TurmaDAO turmaDAO = new TurmaDAO();
                     turmaDAO.update(turma);
-
-                    // Adicionando logs para depuração
-                    System.out.println("Turma atualizada - ID: " + turmaId + ", Professor ID: " + professorId + ", Disciplina ID: " + disciplinaId + ", Aluno ID: " + alunoId + ", Código Turma: " + codigoTurma + ", Nota: " + nota);
 
                     request.getSession().setAttribute("msgSuccess", "Turma atualizada com sucesso.");
                     response.sendRedirect(request.getContextPath() + "/Professor/PostarNotasController?acao=Listar");

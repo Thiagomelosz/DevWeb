@@ -79,12 +79,19 @@ public ArrayList<Turma> listaDeTurmas() {
     Conexao conexao = new Conexao();
     try {
         // Consulta SQL para pegar as informações necessárias
-        String selectSQL = "SELECT t.id, t.codigo_turma, d.nome AS nome_disciplina, p.nome AS professor, a.id AS aluno_id, a.nome AS aluno_nome "
-                   + "FROM turmas t "
-                   + "JOIN disciplina d ON t.disciplina_id = d.id "
-                   + "JOIN professores p ON p.id = t.professor_id "
-                   + "LEFT JOIN alunos a ON t.aluno_id = a.id "
-                   + "ORDER BY t.codigo_turma";
+        String selectSQL = "SELECT "
+                 + "t.codigo_turma, "
+                 + "MIN(t.id) AS id, "
+                 + "d.nome AS nome_disciplina, "
+                 + "p.nome AS professor, "
+                 + "a.id AS aluno_id, "
+                 + "a.nome AS aluno_nome "
+                 + "FROM turmas t "
+                 + "JOIN disciplina d ON t.disciplina_id = d.id "
+                 + "JOIN professores p ON p.id = t.professor_id "
+                 + "JOIN alunos a ON t.aluno_id = a.id "
+                 + "GROUP BY t.codigo_turma, d.nome, p.nome "
+                 + "ORDER BY t.codigo_turma";
 
         PreparedStatement preparedStatement = conexao.getConexao().prepareStatement(selectSQL);
         ResultSet resultado = preparedStatement.executeQuery();
@@ -281,6 +288,50 @@ public ArrayList<Turma> listaDeTurmas() {
     }
     return turma;
     }
+   
+    public int contarAlunosNaTurma(String codigoTurma) {
+    Conexao conexao = new Conexao();
+    int contagem = 0;
+    try {
+        String sqlQuery = "SELECT COUNT(aluno_id) AS total FROM turmas WHERE codigo_turma = ?";
+        PreparedStatement sql = conexao.getConexao().prepareStatement(sqlQuery);
+        sql.setString(1, codigoTurma);
+        ResultSet rs = sql.executeQuery();
+        if (rs.next()) {
+            contagem = rs.getInt("total");
+        }
+    } catch (SQLException e) {
+        System.err.println("Erro ao contar alunos na turma: " + e.getMessage());
+    } finally {
+        conexao.closeConexao();
+    }
+    return contagem;
+}
+
+public boolean isAlunoInscrito(int alunoId, String codigoTurma) {
+    Conexao conexao = new Conexao();
+    boolean inscrito = false;
+    try {
+        String sqlQuery = "SELECT COUNT(*) AS total FROM turmas WHERE aluno_id = ? AND codigo_turma = ?";
+        PreparedStatement sql = conexao.getConexao().prepareStatement(sqlQuery);
+        sql.setInt(1, alunoId);
+        sql.setString(2, codigoTurma);
+        ResultSet rs = sql.executeQuery();
+        if (rs.next()) {
+            inscrito = rs.getInt("total") > 0; // Se houver pelo menos um resultado, significa que o aluno está inscrito
+        }
+    } catch (SQLException e) {
+        System.err.println("Erro ao verificar inscrição do aluno: " + e.getMessage());
+    } finally {
+        conexao.closeConexao();
+    }
+    return inscrito;
+}
+
+
+
+
+   
 
 }
 
