@@ -91,7 +91,7 @@ public ArrayList<Turma> listaDeTurmas() {
                  + "FROM turmas t "
                  + "JOIN disciplina d ON t.disciplina_id = d.id "
                  + "JOIN professores p ON p.id = t.professor_id "
-                 + "LEFT JOIN alunos a ON t.aluno_id = a.id "  // Alterado para LEFT JOIN
+                 + "LEFT JOIN alunos a ON t.aluno_id = a.id "  
                  + "ORDER BY t.codigo_turma";
 
         PreparedStatement preparedStatement = conexao.getConexao().prepareStatement(selectSQL);
@@ -354,7 +354,7 @@ public boolean isAlunoInscrito(int alunoId, String codigoTurma) {
         sql.setInt(1, alunoId);
         sql.setString(2, codigoTurma);
         
-        System.out.println("Verificando inscrição para alunoId: " + alunoId + " na turma: " + codigoTurma); // Log de depuração
+        
         
         ResultSet rs = sql.executeQuery();
         if (rs.next()) {
@@ -365,9 +365,7 @@ public boolean isAlunoInscrito(int alunoId, String codigoTurma) {
     } finally {
         conexao.closeConexao();
     }
-    
-    // Log final para verificar o retorno
-    System.out.println("Aluno " + alunoId + " inscrito na turma " + codigoTurma + ": " + inscrito);
+
     
     return inscrito;
 }

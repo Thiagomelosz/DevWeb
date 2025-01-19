@@ -75,7 +75,7 @@ public class TurmasController extends HttpServlet {
                 boolean sucesso = turmaDAO.insert(turma);
 
                 if (sucesso) {
-                    request.setAttribute("msgSuccess", "Inscrição realizada com sucesso!");
+                    request.setAttribute("msgOperacaoRealizada", "Inscrição realizada com sucesso!");
                 } else {
                     request.setAttribute("msgError", "Falha na inscrição. Tente novamente.");
                 }

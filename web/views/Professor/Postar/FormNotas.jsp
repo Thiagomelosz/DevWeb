@@ -82,7 +82,7 @@
 
                         <div class="mb-3">
                             <label for="nota" class="form-label">Nota</label>
-                            <input type="text" name="nota" value="<%= turma.getNota() %>" class="form-control">
+                            <input type="number" min="0" max="10" name="nota" value="<%= turma.getNota() %>" class="form-control">
                         </div>
 
                         <div>

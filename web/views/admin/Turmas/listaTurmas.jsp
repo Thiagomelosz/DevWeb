@@ -39,8 +39,7 @@
                                 // Verifica se a lista de disciplinas não é nula nem vazia
                                 if (listaTurmas != null && !listaTurmas.isEmpty()) {
                                     for (Turma turma : listaTurmas) {
-                                        // Log para verificar se o nome do aluno está sendo recuperado corretamente
-                                        System.out.println("Nome do aluno: " + turma.getNomeAluno());
+                                       
                             %>
                                         <tr>
                                             <td><%= turma.getCodigoTurma() %></td>
