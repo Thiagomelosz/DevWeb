@@ -64,7 +64,11 @@
                                                 <form action="/aplicacaoMVC/aluno/TurmasController" method="POST">
                                                     <input type="hidden" name="acao" value="Inscrever">
                                                     <input type="hidden" name="idTurma" value="<%= turma.getId() %>">
-
+                                                    
+                                                   
+                                                   
+                                                    
+                                              
                                                     <button type="submit" class="btn btn-success" 
                                                             <%= (isInscrito || isTurmaLotada) ? "disabled" : "" %> 
                                                             data-bs-toggle="tooltip" 

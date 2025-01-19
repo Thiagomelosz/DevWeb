@@ -132,13 +132,13 @@ public ArrayList<Turma> listaDeTurmasAluno() {
     ArrayList<Turma> minhasTurmas = new ArrayList<>();
     Conexao conexao = new Conexao();
     try {
-        // Nova consulta SQL com GROUP BY
-        String selectSQL = "SELECT t.codigo_turma, MIN(t.id) AS id, d.nome AS nome_disciplina, p.nome AS professor" +
+        // Nova consulta SQL com GROUP BY e correção de espaços
+        String selectSQL = "SELECT t.codigo_turma, MIN(t.id) AS id, d.nome AS nome_disciplina, p.nome AS professor " +
                            "FROM turmas t " +
                            "JOIN disciplina d ON t.disciplina_id = d.id " +
                            "JOIN professores p ON p.id = t.professor_id " +
-                           "JOIN alunos a ON a.id = t.aluno_id" +
-                           "GROUP BY t.codigo_turma, d.nome, p.nome" +
+                           "JOIN alunos a ON a.id = t.aluno_id " +  // Faltava espaço aqui
+                           "GROUP BY t.codigo_turma, d.nome, p.nome " +
                            "ORDER BY t.codigo_turma";
 
         PreparedStatement preparedStatement = conexao.getConexao().prepareStatement(selectSQL);
@@ -163,11 +163,9 @@ public ArrayList<Turma> listaDeTurmasAluno() {
         conexao.closeConexao();
     }
 
-    // Log para verificar o tamanho da lista
-    // System.out.println(minhasTurmas.size());
-
     return minhasTurmas;
 }
+
 
 
 
