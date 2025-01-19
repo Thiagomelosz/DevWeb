@@ -19,28 +19,24 @@ public class TurmaController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String acao = (String) request.getParameter("acao");
+        String acao = request.getParameter("acao");
         Turma turma = new Turma();
         TurmaDAO turmaDAO = new TurmaDAO();
         RequestDispatcher rd;
-        //System.out.println("Ação recebida no GET: " + acao);
+
 
         switch (acao) {
-            
             case "Listar":
-              
                 request.setAttribute("listaTurmas", turmaDAO.listaDeTurmas());
                 rd = request.getRequestDispatcher("/views/admin/Turmas/listaTurmas.jsp");
                 rd.forward(request, response);
                 break;
 
-             case "Alterar":
-             case "Excluir":
-                 
+            case "Alterar":
+            case "Excluir":
                 int id = Integer.parseInt(request.getParameter("id"));
                 turma = turmaDAO.get(id);
 
-                
                 request.setAttribute("turma", turma);
                 request.setAttribute("msgError", "");
                 request.setAttribute("acao", acao);
@@ -48,11 +44,9 @@ public class TurmaController extends HttpServlet {
                 rd = request.getRequestDispatcher("/views/admin/Turmas/formTurma.jsp");
                 rd.forward(request, response);
                 break;
-                 
 
             case "Incluir":
-                // Incluir nova turma
-                Turma novaTurma = new Turma(); // Nova turma vazia
+                Turma novaTurma = new Turma();
                 request.setAttribute("turma", novaTurma);
                 request.setAttribute("msgError", "");
                 request.setAttribute("acao", acao);
@@ -62,36 +56,30 @@ public class TurmaController extends HttpServlet {
                 break;
 
             default:
-                System.out.println("Ação desconhecida recebida.");
                 request.setAttribute("msgError", "Ação inválida.");
                 rd = request.getRequestDispatcher("/views/admin/Turmas/listaTurmas.jsp");
                 rd.forward(request, response);
                 break;
         }
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String acao = request.getParameter("acao");
         String idParam = request.getParameter("id");
-        System.out.println("ID recebido no POST: " + idParam); // Log do ID
         int id = 0;
+
         try {
-            id = Integer.parseInt(idParam); 
-            System.out.println("ID convertido no POST: " + id); // Log após conversão
+            id = Integer.parseInt(idParam);
         } catch (NumberFormatException e) {
-            System.out.println("Erro ao tentar converter o ID no POST: " + e.getMessage());
+            System.err.println("Erro ao converter o ID no POST: " + e.getMessage());
             request.setAttribute("msgError", "Formato de ID inválido.");
             request.setAttribute("link", "/aplicacaoMVC/admin/TurmaController?acao=Listar");
             RequestDispatcher rd = request.getRequestDispatcher("/views/admin/Turmas/formTurma.jsp");
             rd.forward(request, response);
             return;
-        }
-
-        if (id == 0) {
-            System.out.println("ID está vindo como zero no POST.");
         }
 
         int professorID = Integer.parseInt(request.getParameter("ProfessorId"));
@@ -100,15 +88,10 @@ public class TurmaController extends HttpServlet {
         String codigoTurma = request.getParameter("codigoTurma");
         String notaStr = request.getParameter("nota");
 
-        System.out.println("Ação recebida no POST: " + acao);
-        System.out.println("ProfessorID: " + professorID + ", DisciplinaID: " + disciplinaID + ", AlunoID: " + alunoId);
-        System.out.println("Código da Turma: " + codigoTurma + ", Nota: " + notaStr);
-
         RequestDispatcher rd;
 
-        // Verificar se campos obrigatórios estão vazios
         if (codigoTurma == null || codigoTurma.isEmpty()) {
-            System.out.println("Campo 'codigoTurma' está vazio.");
+            System.err.println("Campo 'codigoTurma' está vazio.");
             Turma turma = new Turma();
             request.setAttribute("turma", turma);
             request.setAttribute("msgError", "É necessário preencher todos os campos");
@@ -119,7 +102,6 @@ public class TurmaController extends HttpServlet {
             return;
         }
 
-        // Tratar a nota
         double nota = 0.0;
         try {
             if (notaStr != null && !notaStr.isEmpty()) {
@@ -127,7 +109,7 @@ public class TurmaController extends HttpServlet {
                 nota = Double.parseDouble(notaStr);
             }
         } catch (NumberFormatException e) {
-            System.out.println("Erro ao converter a nota: " + e.getMessage());
+            System.err.println("Erro ao converter a nota: " + e.getMessage());
             request.setAttribute("msgError", "Formato de nota inválido.");
             request.setAttribute("link", "/aplicacaoMVC/admin/TurmaController?acao=Listar");
             rd = request.getRequestDispatcher("/views/admin/Turmas/formTurma.jsp");
@@ -141,7 +123,21 @@ public class TurmaController extends HttpServlet {
         try {
             switch (acao) {
                 case "Incluir":
-                    System.out.println("Incluir nova turma...");
+
+                    // Verificar se o professor já possui duas turmas
+                    int contagemTurmas = turmaDAO.contarProfessorNaTurma(professorID);
+
+                    if (contagemTurmas >= 2) {
+                        System.err.println("Professor já possui o número máximo de turmas.");
+                        request.setAttribute("msgError", "Este professor já possui o número máximo de turmas permitido.");
+                        request.setAttribute("turma", turma);
+                        request.setAttribute("acao", acao);
+                        request.setAttribute("link", "/aplicacaoMVC/admin/TurmaController?acao=Listar");
+                        rd = request.getRequestDispatcher("/views/admin/Turmas/formTurma.jsp");
+                        rd.forward(request, response);
+                        return;
+                    }
+
                     boolean sucesso = turmaDAO.insert(turma);
                     if (sucesso) {
                         request.setAttribute("msgOperacaoRealizada", "Inclusão realizada com sucesso");
@@ -151,25 +147,22 @@ public class TurmaController extends HttpServlet {
                     break;
 
                 case "Alterar":
-                    System.out.println("Alterar turma com ID: " + turma.getId());
                     turmaDAO.update(turma);
                     request.setAttribute("msgOperacaoRealizada", "Alteração realizada com sucesso");
                     break;
 
                 case "Excluir":
-                    System.out.println("Excluir turma com ID: " + id);
                     turmaDAO.delete(id);
                     request.setAttribute("msgOperacaoRealizada", "Exclusão realizada com sucesso");
                     break;
             }
 
-            // Redirecionar para a lista de turmas
             request.setAttribute("link", "/aplicacaoMVC/admin/TurmaController?acao=Listar");
             rd = request.getRequestDispatcher("/views/comum/showMessage.jsp");
             rd.forward(request, response);
 
         } catch (Exception e) {
-            System.out.println("Erro ao realizar operação: " + e.getMessage());
+            System.err.println("Erro ao realizar operação: " + e.getMessage());
             request.setAttribute("msgError", "Erro ao realizar a operação: " + e.getMessage());
             request.setAttribute("link", "/aplicacaoMVC/admin/TurmaController?acao=Listar");
             rd = request.getRequestDispatcher("/views/admin/Turmas/formTurma.jsp");

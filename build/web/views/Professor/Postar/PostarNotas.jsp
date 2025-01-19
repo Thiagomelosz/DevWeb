@@ -17,7 +17,14 @@
         <div class="container">
             <jsp:include page="../../comum/menu.jsp" />
             <div class="mt-5">
-                <h1>Notas do Aluno</h1>
+                <h2>Notas dos Aluno de suas Turmas</h2>
+                <div class="alert alert-info" role="alert">
+                    Observação: 
+                    <ul>
+                        <li>Aqui está a lista dos alunos pertencentes às suas turmas.</li>
+                        <li>Você pode visualizá-los e alterar suas notas.</li>
+                    </ul>
+                </div>
                 
                 <div class="table-responsive">
                     <table class="table table-hover">

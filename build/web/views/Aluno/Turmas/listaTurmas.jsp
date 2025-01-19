@@ -21,7 +21,6 @@
 
                 <h2>Lista de Turmas</h2>
 
-               
                 <div class="alert alert-info" role="alert">
                     Observação: 
                     <ul>
@@ -50,10 +49,12 @@
                                     TurmaDAO turmaDAO = new TurmaDAO();
                                     for (Turma turma : listaTurmas) {
                                         
-                                        boolean isInscrito = (alunoLogado != null) && turma.isAlunoInscrito(alunoLogado.getId());
+                                        
+                                        boolean isInscrito = (alunoLogado != null) && turmaDAO.isAlunoInscrito(alunoLogado.getId(), turma.getCodigoTurma());
                                         int numeroAlunos = turmaDAO.contarAlunosNaTurma(turma.getCodigoTurma());
                                         boolean isTurmaLotada = numeroAlunos >= 2;  // Verifica se a turma tem 2 alunos ou mais
-                            %>
+
+                         %>
                                         <tr>
                                             <td><%= turma.getCodigoTurma() %></td>
                                             <td><%= turma.getNomeDisciplina() %></td>
@@ -63,8 +64,7 @@
                                                 <form action="/aplicacaoMVC/aluno/TurmasController" method="POST">
                                                     <input type="hidden" name="acao" value="Inscrever">
                                                     <input type="hidden" name="idTurma" value="<%= turma.getId() %>">
-                                                    
-                                                    <!-- Desabilita o botão caso o aluno esteja inscrito ou a turma esteja lotada -->
+
                                                     <button type="submit" class="btn btn-success" 
                                                             <%= (isInscrito || isTurmaLotada) ? "disabled" : "" %> 
                                                             data-bs-toggle="tooltip" 
@@ -73,7 +73,6 @@
                                                     </button>
                                                 </form>
                                                 
-                                                <!-- Aviso ao lado do botão -->
                                                 <%
                                                     if (isInscrito) {
                                                 %>
@@ -105,7 +104,6 @@
 
         <script src="http://localhost:8080/aplicacaoMVC/views/bootstrap/bootstrap.bundle.min.js"></script>
 
-        
         <script>
             var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
             var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {

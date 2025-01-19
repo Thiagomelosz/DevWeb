@@ -18,7 +18,7 @@
                 <h1>Área Restrita</h1>
                 <%
                     Administrador administradorLogado = (Administrador) session.getAttribute("administrador");
-                    out.println("<h3>Usuário logado com sucesso</h3>");
+                    out.println("<h3>Administrador logado com sucesso</h3>");
                     out.println("<h2>Nome: " + administradorLogado.getNome() + "</h2>");
                 %>
 
