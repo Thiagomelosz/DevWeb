@@ -1,4 +1,5 @@
 <%@page import="entidade.Turma"%>
+<%@page import="entidade.Aluno"%> 
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 
@@ -28,6 +29,7 @@
                                 <th scope="col">Codigo da Turma</th>
                                 <th scope="col">Nome da Matéria</th>
                                 <th scope="col">Professor</th>
+                                <th scope="col">Aluno</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -37,11 +39,14 @@
                                 // Verifica se a lista de disciplinas não é nula nem vazia
                                 if (listaTurmas != null && !listaTurmas.isEmpty()) {
                                     for (Turma turma : listaTurmas) {
+                                        // Log para verificar se o nome do aluno está sendo recuperado corretamente
+                                        System.out.println("Nome do aluno: " + turma.getNomeAluno());
                             %>
                                         <tr>
                                             <td><%= turma.getCodigoTurma() %></td>
                                             <td><%= turma.getNomeDisciplina() %></td>
                                             <td><%= turma.getNomeProfessor() %></td>
+                                            <td><%= turma.getNomeAluno() %></td>
                                             <td>
                                                 <a href="/aplicacaoMVC/admin/TurmaController?acao=Alterar&id=<%= turma.getId() %>" class="btn btn-warning">Alterar</a>
                                                 <a href="/aplicacaoMVC/admin/TurmaController?acao=Excluir&id=<%= turma.getId() %>" class="btn btn-danger">Excluir</a>
@@ -52,7 +57,7 @@
                                 } else {
                             %>
                                     <tr>
-                                        <td colspan="3">Nenhuma turma cadastrada.</td>
+                                        <td colspan="5">Nenhuma turma cadastrada.</td>
                                     </tr>
                             <%
                                 }

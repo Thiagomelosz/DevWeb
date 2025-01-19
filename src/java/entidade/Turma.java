@@ -13,6 +13,7 @@ public class Turma {
     private double nota;
     private String nomeDisciplina;
     private String nomeProfessor;
+    private String nomeAluno;
     private List<Aluno> alunos;
 
     public Turma(int id, int professorId, int disciplinaId, int alunoId, String codigoTurma, double nota) {
@@ -84,6 +85,15 @@ public class Turma {
     public void setNota(double nota) {
         this.nota = nota;
     }
+    
+    public String getNomeAluno() {
+        return nomeAluno;
+    }
+    
+    public void setNomeAluno(String nomeAluno) {
+        this.nomeAluno = nomeAluno;
+    }
+    
     public String getNomeDisciplina() {
         return nomeDisciplina;
     }

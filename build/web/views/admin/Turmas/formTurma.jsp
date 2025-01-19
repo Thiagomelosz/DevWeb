@@ -91,11 +91,11 @@
                         <label for="codigoTurma" class="form-label">Codigo da Turma</label>
                         <input type="number" min="1" max="99" name="codigoTurma" <%= acao.equals("Excluir") ? "readonly" : ""%> value="<%=turma.getCodigoTurma()%>" class="form-control">
                     </div>
+                    
+                    
+                    <input type="hidden" name="nota" value="99">
 
-                    <div class="mb-3">
-                        <label for="Nota" class="form-label">Nota</label>
-                        <input type="text" name="nota" <%= acao.equals("Excluir") ? "readonly" : ""%> value="<%= turma.getNota() %>" class="form-control">
-                    </div>
+                   
 
                     <div>
                         <input type="submit" name="btEnviar" value="<%= acao %>" class="btn btn-primary">
