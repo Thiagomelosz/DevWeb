@@ -142,7 +142,7 @@ public class TurmaController extends HttpServlet {
                     if (sucesso) {
                         request.setAttribute("msgOperacaoRealizada", "Inclusão realizada com sucesso");
                     } else {
-                        request.setAttribute("msgError", "Erro ao realizar a operação: Nenhuma linha inserida.");
+                        request.setAttribute("msgOperacaoRealizada", "Erro ao realizar a operação: Nenhuma linha inserida.");
                     }
                     break;
 
